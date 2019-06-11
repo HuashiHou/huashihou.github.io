@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Spring中的事件简述与Guava的EventBus | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="Spring中的事件简述与Guava的EventBusSpring的事件关键类 org.springframework.context.ApplicationEvent  org.springframework.context.ApplicationListener   使用容器触发事件，applicationContext发布事件。 简单实现逻辑 自定义订阅和通知事件，继承Application">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring中的事件简述与Guava的EventBus">
+<meta property="og:url" content="http://yoursite.com/posts/38349/index.html">
+<meta property="og:site_name" content="Wayne&#39;s blog">
+<meta property="og:description" content="Spring中的事件简述与Guava的EventBusSpring的事件关键类 org.springframework.context.ApplicationEvent  org.springframework.context.ApplicationListener   使用容器触发事件，applicationContext发布事件。 简单实现逻辑 自定义订阅和通知事件，继承Application">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-11T09:26:43.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring中的事件简述与Guava的EventBus">
+<meta name="twitter:description" content="Spring中的事件简述与Guava的EventBusSpring的事件关键类 org.springframework.context.ApplicationEvent  org.springframework.context.ApplicationListener   使用容器触发事件，applicationContext发布事件。 简单实现逻辑 自定义订阅和通知事件，继承Application">
+    
+        <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">侯骅十</h5>
+          <a href="mailto:me@houhuashi.com" title="me@houhuashi.com" class="mail">me@houhuashi.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/HuashiHou" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                同性交友社区
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring中的事件简述与Guava的EventBus</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring中的事件简述与Guava的EventBus</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-11T09:26:18.000Z" itemprop="datePublished" class="page-time">
+  2019-06-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Spring中的事件简述与Guava的EventBus"><span class="post-toc-number">1.</span> <span class="post-toc-text">Spring中的事件简述与Guava的EventBus</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Spring的事件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Spring的事件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关键类"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">关键类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单实现逻辑"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">简单实现逻辑</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拓展-EventListener注解"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">拓展@EventListener注解</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拓展Google-Guava中的EventBus"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">拓展Google Guava中的EventBus</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">参考资料:</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Spring中的事件简述与Guava的EventBus" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring中的事件简述与Guava的EventBus</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-11 17:26:18" datetime="2019-06-11T09:26:18.000Z" itemprop="datePublished">2019-06-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Spring中的事件简述与Guava的EventBus"><a href="#Spring中的事件简述与Guava的EventBus" class="headerlink" title="Spring中的事件简述与Guava的EventBus"></a>Spring中的事件简述与Guava的EventBus</h1><h2 id="Spring的事件"><a href="#Spring的事件" class="headerlink" title="Spring的事件"></a>Spring的事件</h2><h3 id="关键类"><a href="#关键类" class="headerlink" title="关键类"></a>关键类</h3><ol>
+<li><p>org.springframework.context.ApplicationEvent</p>
+</li>
+<li><p>org.springframework.context.ApplicationListener</p>
+</li>
+</ol>
+<p>使用容器触发事件，applicationContext发布事件。</p>
+<h3 id="简单实现逻辑"><a href="#简单实现逻辑" class="headerlink" title="简单实现逻辑"></a>简单实现逻辑</h3><ol>
+<li><p>自定义订阅和通知事件，继承ApplicationEvent</p>
+</li>
+<li><p>定义事件监听器，实现ApplicationListener</p>
+</li>
+<li><p>使用容器发布事件（订阅、通知）</p>
+</li>
+</ol>
+<h3 id="拓展-EventListener注解"><a href="#拓展-EventListener注解" class="headerlink" title="拓展@EventListener注解"></a>拓展@EventListener注解</h3><p>为了加强@EventListener的功能，Spring 4.2开始支持使用SpEL表达式定义事件触发的条件。</p>
+<p>下面为使用了该注解的的一个实例：</p>
+<p>Event：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEvent</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> isImport;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestEvent</span><span class="params">(Object source, <span class="keyword">boolean</span> isImport)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">        <span class="keyword">this</span>.isImport = isImport;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isImport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isImport;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setImport</span><span class="params">(<span class="keyword">boolean</span> anImport)</span> </span>&#123;</span><br><span class="line">        isImport = anImport;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"TestEvent&#123;"</span> +</span><br><span class="line">                <span class="string">"isImport="</span> + isImport +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Listener:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当isImport为true的时候才会打印</span></span><br><span class="line">    <span class="meta">@EventListener</span>(condition=<span class="string">"#testEvent.isImport"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestEventTest</span><span class="params">(TestEvent testEvent)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"==============TestEvent=============="</span> + testEvent.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="拓展Google-Guava中的EventBus"><a href="#拓展Google-Guava中的EventBus" class="headerlink" title="拓展Google Guava中的EventBus"></a>拓展Google Guava中的EventBus</h3><p>GoogleGuava是谷歌在日常开发过程中总结积累出来的一个类库，包含了许多常用的工具等。</p>
+<p>Guava的优点：</p>
+<ul>
+<li>高效设计良好的API，被Google的开发者设计，实现和使用</li>
+<li>遵循高效的java语法实践</li>
+<li>使代码更刻度，简洁，简单</li>
+<li>节约时间，资源，提高生产力</li>
+</ul>
+<p>Guava工程包含了若干被Google的 Java项目广泛依赖 的核心库，例如：</p>
+<ul>
+<li>集合 [collections]</li>
+<li>缓存 [caching]</li>
+<li>原生类型支持 [primitives support]</li>
+<li>并发库 [concurrency libraries]</li>
+<li>通用注解 [common annotations]</li>
+<li>字符串处理 [string processing]</li>
+<li>I/O 等等。</li>
+</ul>
+<p>这里我们主要介绍Guava中的事件总线EventBus。使用Guava的事件总线就不用再像上面Spring中的继承实现接口的方法。只需要在指定的事件处理方法上加@Subscribe注解即可。</p>
+<p>消息封装类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> message;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestEvent</span><span class="params">(<span class="keyword">int</span> message)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">        System.out.println(<span class="string">"event message:"</span>+message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>消息接收类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> lastMessage = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listen</span><span class="params">(TestEvent event)</span> </span>&#123;</span><br><span class="line">        lastMessage = event.getMessage();</span><br><span class="line">        System.out.println(<span class="string">"Message:"</span>+lastMessage);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLastMessage</span><span class="params">()</span> </span>&#123;      </span><br><span class="line">        <span class="keyword">return</span> lastMessage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类及输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestEventBus</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testReceiveEvent</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        EventBus eventBus = <span class="keyword">new</span> EventBus(<span class="string">"test"</span>);</span><br><span class="line">        EventListener listener = <span class="keyword">new</span> EventListener();</span><br><span class="line"></span><br><span class="line">        eventBus.register(listener);</span><br><span class="line"></span><br><span class="line">        eventBus.post(<span class="keyword">new</span> TestEvent(<span class="number">200</span>));</span><br><span class="line">        eventBus.post(<span class="keyword">new</span> TestEvent(<span class="number">300</span>));</span><br><span class="line">        eventBus.post(<span class="keyword">new</span> TestEvent(<span class="number">400</span>));</span><br><span class="line"></span><br><span class="line">                                    System.out.println(<span class="string">"LastMessage:"</span>+listener.getLastMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出信息</span></span><br><span class="line">event message:<span class="number">200</span></span><br><span class="line">Message:<span class="number">200</span></span><br><span class="line">event message:<span class="number">300</span></span><br><span class="line">Message:<span class="number">300</span></span><br><span class="line">event message:<span class="number">400</span></span><br><span class="line">Message:<span class="number">400</span></span><br><span class="line">LastMessage:<span class="number">400</span></span><br></pre></td></tr></table></figure>
+
+<p>以上即是EventBus的简单使用。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料:"></a>参考资料:</h3><p><a href="https://shimo.im/docs/z7ggA56biOAfAdht/read" target="_blank" rel="noopener">https://shimo.im/docs/z7ggA56biOAfAdht/read</a></p>
+<p><a href="https://www.cnblogs.com/peida/p/EventBus.html" target="_blank" rel="noopener">https://www.cnblogs.com/peida/p/EventBus.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-06-11T09:26:43.631Z" itemprop="dateUpdated">2019-06-11 17:26:43</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/38349/" target="_blank" rel="external">http://yoursite.com/posts/38349/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="侯骅十">
+            侯骅十
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/38349/&title=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/38349/&title=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/38349/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&url=http://yoursite.com/posts/38349/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/38349/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">关于二分查找（折半查找）的即记录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>侯骅十 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/38349/&title=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/38349/&title=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/38349/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring中的事件简述与Guava的EventBus》 — Wayne's blog&url=http://yoursite.com/posts/38349/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/38349/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/38349/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
