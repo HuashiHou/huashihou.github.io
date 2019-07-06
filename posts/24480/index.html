@@ -21,20 +21,20 @@
     
     
     <meta name="keywords" content>
-    <meta name="description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+    <meta name="description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解Tomcat之一：Tomcat基础架构">
 <meta property="og:url" content="http://yoursite.com/posts/24480/index.html">
 <meta property="og:site_name" content="Wayne&#39;s blog">
-<meta property="og:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+<meta property="og:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original">
 <meta property="og:image" content="https://images-cdn.shimo.im/HF9ScgG4RrsO003A/image.png!thumbnail">
 <meta property="og:image" content="https://images-cdn.shimo.im/pZ1MD2LFC1ojN7Fa/image.png!thumbnail">
-<meta property="og:updated_time" content="2019-07-06T08:50:50.048Z">
+<meta property="og:updated_time" content="2019-07-06T09:00:21.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解Tomcat之一：Tomcat基础架构">
-<meta name="twitter:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+<meta name="twitter:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀">
 <meta name="twitter:image" content="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original">
     
         <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
@@ -191,14 +191,10 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="深入理解Tomcat之一：Tomcat基础架构"><a href="#深入理解Tomcat之一：Tomcat基础架构" class="headerlink" title="深入理解Tomcat之一：Tomcat基础架构"></a>深入理解Tomcat之一：Tomcat基础架构</h1><h2 id="Tomcat的定义（来自wiki百科）"><a href="#Tomcat的定义（来自wiki百科）" class="headerlink" title="Tomcat的定义（来自wiki百科）"></a>Tomcat的定义（来自wiki百科）</h2><pre><code>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀**等。</code></pre><p>由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。</p>
-<h2 id="Http服务器与应用服务器"><a href="#Http服务器与应用服务器" class="headerlink" title="Http服务器与应用服务器"></a>Http服务器与应用服务器</h2><pre><code>之前在技术讨论群里看到一个群友提问：nginx和tomcat有什么区别呀？其实提出这种问题就可以得知他对两个服务器的基础概念都还不是很清晰。
-
-严格来讲，Nginx、Apache这些叫做Http Server； 而Tomcat是Application Server，更准确的说，是一个Servlet、Jsp容器。
- 一个 **HTTP Server 关心的是 HTTP 协议层面的传输和访问控制**，所以在 Apache/Nginx 上你可以看到**代理、负载均衡**等功能。客户端通过 HTTP Server 访问服务器上存储的资源（HTML 文件、图片文件等等）。一个 HTTP Server 始终只是把服务器上的文件如实的通过 HTTP 协议传输给客户端。
-对于 Tomcat 来说，就是需要**提供 JSP/Sevlet 运行需要的标准类库、Interface 等**。为了方便，应用服务器往往也会集成 HTTP Server 的功能，但是不如专业的 HTTP Server 那么强大，所以应用服务器往往是运行在 HTTP Server 的背后，执行应用，将动态的内容转化为静态的内容之后，通过 HTTP Server 分发到客户端。
-
-回到上面的问题，在我的理解看来，Nginx更像一个协调管理者的角色，而Tomcat用“容器”这个词语形容它会更加形象贴切一点。</code></pre><h2 id="Tomcat的整体架构"><a href="#Tomcat的整体架构" class="headerlink" title="Tomcat的整体架构"></a>Tomcat的整体架构</h2><figure class="image-bubble">
+            <h1 id="深入理解Tomcat之一：Tomcat基础架构"><a href="#深入理解Tomcat之一：Tomcat基础架构" class="headerlink" title="深入理解Tomcat之一：Tomcat基础架构"></a>深入理解Tomcat之一：Tomcat基础架构</h1><h2 id="Tomcat的定义（来自wiki百科）"><a href="#Tomcat的定义（来自wiki百科）" class="headerlink" title="Tomcat的定义（来自wiki百科）"></a>Tomcat的定义（来自wiki百科）</h2><p>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个<strong>Servlet容器</strong>，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。</p>
+<h2 id="Http服务器与应用服务器"><a href="#Http服务器与应用服务器" class="headerlink" title="Http服务器与应用服务器"></a>Http服务器与应用服务器</h2><p>之前在技术讨论群里看到一个群友提问：nginx和tomcat有什么区别呀？其实提出这种问题就可以得知他对两个服务器的基础概念都还不是很清晰。 严格来讲，Nginx、Apache这些叫做Http Server； 而Tomcat是Application Server，更准确的说，是一个Servlet、Jsp容器。 一个 <strong>HTTP Server 关心的是 HTTP 协议层面的传输和访问控制</strong>，所以在 Apache/Nginx 上你可以看到<strong>代理、负载均衡</strong>等功能。客户端通过 HTTP Server 访问服务器上存储的资源（HTML 文件、图片文件等等）。一个 HTTP Server 始终只是把服务器上的文件如实的通过 HTTP 协议传输给客户端。 对于 Tomcat 来说，就是需要<strong>提供 JSP/Sevlet 运行需要的标准类库、Interface 等</strong>。为了方便，应用服务器往往也会集成 HTTP Server 的功能，但是不如专业的 HTTP Server 那么强大，所以应用服务器往往是运行在 HTTP Server 的背后，执行应用，将动态的内容转化为静态的内容之后，通过 HTTP Server 分发到客户端。 回到上面的问题，在我的理解看来，Nginx更像一个协调管理者的角色，而Tomcat用“容器”这个词语形容它会更加形象贴切一点。</p>
+<h2 id="Tomcat的整体架构"><a href="#Tomcat的整体架构" class="headerlink" title="Tomcat的整体架构"></a>Tomcat的整体架构</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original" alt title>
@@ -206,9 +202,10 @@
                 <div class="image-caption"></div>
             </figure>
 
-<pre><code>Tomcat最顶层的容器是Server， 代表整个服务器，从上图可以看出一个 Server至少包含 一个Service，用于具体提供服务。</code></pre><h3 id="两个主要组件"><a href="#两个主要组件" class="headerlink" title="两个主要组件"></a>两个主要组件</h3><h4 id="Connecter"><a href="#Connecter" class="headerlink" title="Connecter"></a>Connecter</h4><pre><code>用于**处理连接相关**的事，并提供**Socket**与Request和Response相关的转化;</code></pre><h5 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h5><pre><code>一个Connecter将在某个指定的**端口上侦听客户请求，接收浏览器的发过来的 tcp 连接请求，创建一个 Request 和 Response 对象分别用于和请求端交换数据**，然后会产生一个线程来处理这个请求并把产生的 Request 和 Response 对象传给处理Engine(Container中的一部分)，从Engine出获得响应并返回客户。
-
-Tomcat中有两个经典的Connector，</code></pre><ul>
+<p>Tomcat最顶层的容器是Server， 代表整个服务器，从上图可以看出一个 Server至少包含 一个Service，用于具体提供服务。</p>
+<h3 id="两个主要组件"><a href="#两个主要组件" class="headerlink" title="两个主要组件"></a>两个主要组件</h3><h4 id="Connecter"><a href="#Connecter" class="headerlink" title="Connecter"></a>Connecter</h4><p>用于<strong>处理连接相关</strong>的事，并提供<strong>Socket</strong>与Request和Response相关的转化;</p>
+<h5 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h5><p>一个Connecter将在某个指定的<strong>端口上侦听客户请求，接收浏览器的发过来的 tcp 连接请求，创建一个 Request 和 Response 对象分别用于和请求端交换数据</strong>，然后会产生一个线程来处理这个请求并把产生的 Request 和 Response 对象传给处理Engine(Container中的一部分)，从Engine出获得响应并返回客户。 Tomcat中有两个经典的Connector，</p>
+<ul>
 <li><p>一个直接侦听来自Browser的HTTP请求，</p>
 </li>
 <li><p>另外一个来自其他的WebServer请求。</p>
@@ -243,7 +240,8 @@ Tomcat中有两个经典的Connector，</code></pre><ul>
 </li>
 </ul>
 <p><strong><em>也就是说Endpoint用来实现TCP/IP 协议， Processor 用来实现HTTP 协议， Adapter 将请求适配到Servlet 容器进行具体处理。</em></strong></p>
-<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><pre><code>用于**封装和管理Servlet**，以及具体**处理Request请求**；</code></pre><figure class="image-bubble">
+<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><p>用于<strong>封装和管理Servlet</strong>，以及具体<strong>处理Request请求</strong>；</p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="https://images-cdn.shimo.im/pZ1MD2LFC1ojN7Fa/image.png!thumbnail" alt title>
@@ -277,7 +275,7 @@ Tomcat中有两个经典的Connector，</code></pre><ul>
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-06T08:50:50.048Z" itemprop="dateUpdated">2019-07-06 16:50:50</time>
+    Last updated: <time datetime="2019-07-06T09:00:21.186Z" itemprop="dateUpdated">2019-07-06 17:00:21</time>
 </span><br>
 
 
@@ -356,21 +354,14 @@ Tomcat中有两个经典的Connector，</code></pre><ul>
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/posts/6083/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">深入理解Tomcat之二：自己动手实现一个简单的Tomcat</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/38349/" id="post-next" class="post-nav-link">
+      <a href="/posts/6083/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Spring中的事件简述与Guava的EventBus</h4>
+        <h4 class="title">深入理解Tomcat之二：自己动手实现一个简单的Tomcat</h4>
       </a>
     </div>
   
