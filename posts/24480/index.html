@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>深入理解Tomcat之一：Tomcat基础架构 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Tomcat之一：Tomcat基础架构">
+<meta property="og:url" content="http://yoursite.com/posts/24480/index.html">
+<meta property="og:site_name" content="Wayne&#39;s blog">
+<meta property="og:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original">
+<meta property="og:image" content="https://images-cdn.shimo.im/HF9ScgG4RrsO003A/image.png!thumbnail">
+<meta property="og:image" content="https://images-cdn.shimo.im/pZ1MD2LFC1ojN7Fa/image.png!thumbnail">
+<meta property="og:updated_time" content="2019-07-06T08:48:56.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Tomcat之一：Tomcat基础架构">
+<meta name="twitter:description" content="深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tom">
+<meta name="twitter:image" content="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original">
+    
+        <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">侯骅十</h5>
+          <a href="mailto:me@houhuashi.com" title="me@houhuashi.com" class="mail">me@houhuashi.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/HuashiHou" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                同性交友社区
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">深入理解Tomcat之一：Tomcat基础架构</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">深入理解Tomcat之一：Tomcat基础架构</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-06T09:26:18.000Z" itemprop="datePublished" class="page-time">
+  2019-07-06
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#深入理解Tomcat之一：Tomcat基础架构"><span class="post-toc-number">1.</span> <span class="post-toc-text">深入理解Tomcat之一：Tomcat基础架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat的定义（来自wiki百科）"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Tomcat的定义（来自wiki百科）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Http服务器与应用服务器"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Http服务器与应用服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat的整体架构"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Tomcat的整体架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两个主要组件"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">两个主要组件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Connecter"><span class="post-toc-number">1.3.1.1.</span> <span class="post-toc-text">Connecter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基本功能"><span class="post-toc-number">1.3.1.1.1.</span> <span class="post-toc-text">基本功能</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Container"><span class="post-toc-number">1.3.1.2.</span> <span class="post-toc-text">Container</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他组件"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">其他组件</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-深入理解Tomcat之一：Tomcat基础架构" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">深入理解Tomcat之一：Tomcat基础架构</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-06 17:26:18" datetime="2019-07-06T09:26:18.000Z" itemprop="datePublished">2019-07-06</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="深入理解Tomcat之一：Tomcat基础架构"><a href="#深入理解Tomcat之一：Tomcat基础架构" class="headerlink" title="深入理解Tomcat之一：Tomcat基础架构"></a>深入理解Tomcat之一：Tomcat基础架构</h1><h2 id="Tomcat的定义（来自wiki百科）"><a href="#Tomcat的定义（来自wiki百科）" class="headerlink" title="Tomcat的定义（来自wiki百科）"></a>Tomcat的定义（来自wiki百科）</h2><pre><code>Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个**Servlet容器**，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomcat阀**等。</code></pre><p>由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。</p>
+<h2 id="Http服务器与应用服务器"><a href="#Http服务器与应用服务器" class="headerlink" title="Http服务器与应用服务器"></a>Http服务器与应用服务器</h2><pre><code>之前在技术讨论群里看到一个群友提问：nginx和tomcat有什么区别呀？其实提出这种问题就可以得知他对两个服务器的基础概念都还不是很清晰。
+
+严格来讲，Nginx、Apache这些叫做Http Server； 而Tomcat是Application Server，更准确的说，是一个Servlet、Jsp容器。
+ 一个 **HTTP Server 关心的是 HTTP 协议层面的传输和访问控制**，所以在 Apache/Nginx 上你可以看到**代理、负载均衡**等功能。客户端通过 HTTP Server 访问服务器上存储的资源（HTML 文件、图片文件等等）。一个 HTTP Server 始终只是把服务器上的文件如实的通过 HTTP 协议传输给客户端。
+对于 Tomcat 来说，就是需要**提供 JSP/Sevlet 运行需要的标准类库、Interface 等**。为了方便，应用服务器往往也会集成 HTTP Server 的功能，但是不如专业的 HTTP Server 那么强大，所以应用服务器往往是运行在 HTTP Server 的背后，执行应用，将动态的内容转化为静态的内容之后，通过 HTTP Server 分发到客户端。
+
+回到上面的问题，在我的理解看来，Nginx更像一个协调管理者的角色，而Tomcat用“容器”这个词语形容它会更加形象贴切一点。</code></pre><h2 id="Tomcat的整体架构"><a href="#Tomcat的整体架构" class="headerlink" title="Tomcat的整体架构"></a>Tomcat的整体架构</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images-cdn.shimo.im/HXQSiPn6iJ0hiTzk/image.png!original" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<pre><code>Tomcat最顶层的容器是Server， 代表整个服务器，从上图可以看出一个 Server至少包含 一个Service，用于具体提供服务。</code></pre><h3 id="两个主要组件"><a href="#两个主要组件" class="headerlink" title="两个主要组件"></a>两个主要组件</h3><h4 id="Connecter"><a href="#Connecter" class="headerlink" title="Connecter"></a>Connecter</h4><pre><code>用于**处理连接相关**的事，并提供**Socket**与Request和Response相关的转化;</code></pre><h5 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h5><pre><code>一个Connecter将在某个指定的**端口上侦听客户请求，接收浏览器的发过来的 tcp 连接请求，创建一个 Request 和 Response 对象分别用于和请求端交换数据**，然后会产生一个线程来处理这个请求并把产生的 Request 和 Response 对象传给处理Engine(Container中的一部分)，从Engine出获得响应并返回客户。
+
+Tomcat中有两个经典的Connector，</code></pre><ul>
+<li><p>一个直接侦听来自Browser的HTTP请求，</p>
+</li>
+<li><p>另外一个来自其他的WebServer请求。</p>
+</li>
+</ul>
+<p>HTTP/1.1 Connector在端口8080处侦听来自客户Browser的HTTP请求，AJP/1.3 Connector在端口8009处侦听其他Web Server（其他的HTTP服务器）的Servlet/JSP请求。</p>
+<p>Connector 最重要的功能就是接收连接请求然后分配线程让 Container 来处理这个请求，所以这必然是多线程的，多线程的处理是 Connector 设计的核心。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images-cdn.shimo.im/HF9ScgG4RrsO003A/image.png!thumbnail" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>Connector 中具体是用<strong>ProtocolHandler</strong> 来处理请求的，不同的ProtocolHandler 代表不同的连接类型，比如， Http11Protocol 使用的是普通Socket 来连接的， Http 11 NioProtocol 使用的是NioSocket 来连接的。</p>
+<p>ProtocolHandler 里面有3 个非常重要的组件： Endpoint 、Processor 和Adapter。</p>
+<ul>
+<li><p><strong>Endpoint</strong>用于处理底层Socket 的网络连接，</p>
+<ul>
+<li><p><strong>Acceptor</strong> 用于监昕请求</p>
+</li>
+<li><p><strong>AsyncTimeout</strong> 用于检查异步request 的超时</p>
+</li>
+<li><p><strong>Handler</strong> 用于处理接收到的Socket，在内部调用了Processor 进行处理。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Processor</strong> 用于将Endpoint 接收到的Socket 封装成Request,</p>
+</li>
+<li><p><strong>Adapter</strong> 用于将封装好的Request 交给Container 进行具体处理。</p>
+</li>
+</ul>
+<p><strong><em>也就是说Endpoint用来实现TCP/IP 协议， Processor 用来实现HTTP 协议， Adapter 将请求适配到Servlet 容器进行具体处理。</em></strong></p>
+<h4 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h4><pre><code>用于**封装和管理Servlet**，以及具体**处理Request请求**；</code></pre><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://images-cdn.shimo.im/pZ1MD2LFC1ojN7Fa/image.png!thumbnail" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>Container用于封装和管理Servlet，以及具体处理Request请求，在Connector内部包含了4个子容器。</p>
+<p>4个子容器的作用分别是：</p>
+<p>（1）Engine：引擎，用来管理多个站点，一个Service最多只能有一个Engine；</p>
+<p>（2）Host：代表一个站点，也可以叫虚拟主机，通过配置Host就可以添加站点；</p>
+<p>（3）Context：代表一个应用程序，对应着平时开发的一套程序，或者一个WEB-INF目录以及下面的web.xml文件；</p>
+<p>（4）Wrapper：每一Wrapper封装着一个Servlet；</p>
+<h3 id="其他组件"><a href="#其他组件" class="headerlink" title="其他组件"></a>其他组件</h3><ul>
+<li><p><strong>Jasper</strong>：负责jsp页面的解析，jsp属性的验证,同时负责将jsp动态转换为java代码并编译成class。</p>
+</li>
+<li><p><strong>Naming</strong>：资源管理，负责数据库连接池、EJB、mail等通过JDNI获取的内容。</p>
+</li>
+<li><p><strong>Session</strong>：会话管理的组件</p>
+</li>
+<li><p><strong>Logging</strong>：日志相关</p>
+</li>
+<li><p><strong>JMX</strong>：性能监控等</p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2019-07-06T08:48:56.804Z" itemprop="dateUpdated">2019-07-06 16:48:56</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/24480/" target="_blank" rel="external">http://yoursite.com/posts/24480/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="侯骅十">
+            侯骅十
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/24480/&title=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/24480/&title=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/24480/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&url=http://yoursite.com/posts/24480/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/24480/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/6083/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">深入理解Tomcat之二：自己动手实现一个简单的Tomcat</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>侯骅十 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/24480/&title=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/24480/&title=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/24480/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解Tomcat之一：Tomcat基础架构》 — Wayne's blog&url=http://yoursite.com/posts/24480/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/24480/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/24480/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
