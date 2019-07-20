@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190720/02.png">
 <meta property="og:image" content="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190720/03.png">
 <meta property="og:image" content="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190720/04.png">
-<meta property="og:updated_time" content="2019-07-20T03:40:17.868Z">
+<meta property="og:updated_time" content="2019-07-20T03:44:49.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="专栏学习笔记：为什么很多编程语言中数组都从0开始编号？">
 <meta name="twitter:description" content="专栏学习笔记：为什么很多编程语言中数组都从0开始编号？两个概念线性表除了数组，链表、队列、栈等也是线性表结构。 非线性表二叉树、堆、图等都是非线性表，之所以叫非先行是因为 数据在非线性表中并不是简单的前后关系。 数组越界问题在java和c中的差别由于在c语言中，只要不是受限的内存，所有的内存空间都可以是自由访问的。所以当C语言中数组的下标超过了数组的长度，并不会直接出错，而是会出现其他奇怪的问题。">
@@ -232,7 +232,7 @@
 <li><p>如果事先已知数据的大小，那么使用数组会更加方便，在声明数组的时候直接指定好它的大小。研究过ArrayList源代码的同学应该知道，ArraylList底层也是数组，如果不指定初始长度的话，每一次快满了的时候都会自动扩容，而扩容就是使用了数组复制，想象一下，如果你的List有1G的数据，容器扩容到1.5G，就要把这1G的数据复制过去，是不是想想都很费时间。当然，使用ArrayList也可以事先指定好一个大小。关于这一块的源码分析可以看别人的另外一篇文章：<a href="https://blog.csdn.net/fighterandknight/article/details/61240861" target="_blank" rel="noopener">https://blog.csdn.net/fighterandknight/article/details/61240861</a> </p>
 </li>
 </ol>
-<h2 id="为什么数组从0开始编号"><a href="#为什么数组从0开始编号" class="headerlink" title="为什么数组从0开始编号"></a>为什么数组从0开始编号</h2><p>从存储魔性的角度来看，数组的下标说是偏移量更为准确，它的英文offset也正是此意。偏移量就表示了相对于首地址偏移了多少，学过C语言的同学应该记得，如果把数组赋给一个变量， 那它的指针就是指向数组的头节点，而头节点的偏移量就是0。是不是很好理解了？</p>
+<h2 id="为什么数组从0开始编号"><a href="#为什么数组从0开始编号" class="headerlink" title="为什么数组从0开始编号"></a>为什么数组从0开始编号</h2><p>从存储模型的角度来看，数组的下标说是偏移量更为准确，它的英文offset也正是此意。偏移量就表示了相对于首地址偏移了多少，学过C语言的同学应该记得，如果把数组赋给一个变量， 那它的指针就是指向数组的头节点，而头节点的偏移量就是0。是不是很好理解了？</p>
 
         </div>
 
@@ -241,7 +241,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-20T03:40:17.868Z" itemprop="dateUpdated">2019-07-20 11:40:17</time>
+    Last updated: <time datetime="2019-07-20T03:44:49.882Z" itemprop="dateUpdated">2019-07-20 11:44:49</time>
 </span><br>
 
 
