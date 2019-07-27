@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>单链表之判断表中是否存在环 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="数据结构与算法">
+    <meta name="description" content="单链表之判断表中是否存在环这篇依然是学习专栏《数据结构与算法之美》的拓展练习。链表中的环其实是一个挺有趣的问题，如果链表中存在环，对其进行遍历的时候就会发现next永远存在节点，循环往复永远不会终止。所以我们在遍历链表之前还是判断链表中是否存在环安全一点。 这篇文章不止讲解了如何判断链表中是否存在环，还贴出了链表中非环部分的长度、环的长度、环的起始点这些算法。 判断链表中是否存在环方法一：使用快慢">
+<meta name="keywords" content="数据结构与算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单链表之判断表中是否存在环">
+<meta property="og:url" content="http://yoursite.com/posts/11578/index.html">
+<meta property="og:site_name" content="Wayne&#39;s blog">
+<meta property="og:description" content="单链表之判断表中是否存在环这篇依然是学习专栏《数据结构与算法之美》的拓展练习。链表中的环其实是一个挺有趣的问题，如果链表中存在环，对其进行遍历的时候就会发现next永远存在节点，循环往复永远不会终止。所以我们在遍历链表之前还是判断链表中是否存在环安全一点。 这篇文章不止讲解了如何判断链表中是否存在环，还贴出了链表中非环部分的长度、环的长度、环的起始点这些算法。 判断链表中是否存在环方法一：使用快慢">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190726/01.png">
+<meta property="og:updated_time" content="2019-07-27T14:52:12.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单链表之判断表中是否存在环">
+<meta name="twitter:description" content="单链表之判断表中是否存在环这篇依然是学习专栏《数据结构与算法之美》的拓展练习。链表中的环其实是一个挺有趣的问题，如果链表中存在环，对其进行遍历的时候就会发现next永远存在节点，循环往复永远不会终止。所以我们在遍历链表之前还是判断链表中是否存在环安全一点。 这篇文章不止讲解了如何判断链表中是否存在环，还贴出了链表中非环部分的长度、环的长度、环的起始点这些算法。 判断链表中是否存在环方法一：使用快慢">
+<meta name="twitter:image" content="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190726/01.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">侯骅十</h5>
+          <a href="mailto:me@houhuashi.com" title="me@houhuashi.com" class="mail">me@houhuashi.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/HuashiHou" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                同性交友社区
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/ysweb" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">单链表之判断表中是否存在环</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">单链表之判断表中是否存在环</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-27T14:13:58.000Z" itemprop="datePublished" class="page-time">
+  2019-07-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#单链表之判断表中是否存在环"><span class="post-toc-number">1.</span> <span class="post-toc-text">单链表之判断表中是否存在环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断链表中是否存在环"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">判断链表中是否存在环</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法一：使用快慢节点"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">方法一：使用快慢节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#思路"><span class="post-toc-number">1.1.1.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码"><span class="post-toc-number">1.1.1.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方法二：使用Map将节点作为key"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">方法二：使用Map将节点作为key</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#思路-1"><span class="post-toc-number">1.1.2.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码-1"><span class="post-toc-number">1.1.2.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查找环的起点"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">查找环的起点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#思路-2"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码-2"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#计算环的长度"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">计算环的长度</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#思路-3"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码-3"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-单链表之判断表中是否存在环" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">单链表之判断表中是否存在环</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-27 22:13:58" datetime="2019-07-27T14:13:58.000Z" itemprop="datePublished">2019-07-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="单链表之判断表中是否存在环"><a href="#单链表之判断表中是否存在环" class="headerlink" title="单链表之判断表中是否存在环"></a>单链表之判断表中是否存在环</h1><p>这篇依然是学习专栏《数据结构与算法之美》的拓展练习。<br>链表中的环其实是一个挺有趣的问题，如果链表中存在环，对其进行遍历的时候就会发现next永远存在节点，循环往复永远不会终止。所以我们在遍历链表之前还是判断链表中是否存在环安全一点。</p>
+<p>这篇文章不止讲解了如何判断链表中是否存在环，还贴出了链表中非环部分的长度、环的长度、环的起始点这些算法。</p>
+<h2 id="判断链表中是否存在环"><a href="#判断链表中是否存在环" class="headerlink" title="判断链表中是否存在环"></a>判断链表中是否存在环</h2><h3 id="方法一：使用快慢节点"><a href="#方法一：使用快慢节点" class="headerlink" title="方法一：使用快慢节点"></a>方法一：使用快慢节点</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>学习过其他链表算法的同学应该对快慢指针方法很熟悉了，这里也是使用快慢指针的方法。</p>
+<p>原理就是，快指针既然走的比慢指针快，那么当链表中存在环的时候，快慢指针必定在一个位置会相遇，也就是pFast=pSlow。当这个条件一成立我们即可以断定这个链表存在环。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用快慢指针，</span></span><br><span class="line"><span class="comment">     * 快指针每次走两步，慢指针每次走一步</span></span><br><span class="line"><span class="comment">     * 如果链表中有环，那两个指针必定有相遇的时候</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">doesLinkedListHasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode pFast = head.next.next,pSlow = head.next;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (pFast.next != <span class="keyword">null</span> &amp;&amp; pSlow.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (pFast == pSlow) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pFast = pFast.next.next;</span><br><span class="line">            pSlow = pSlow.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二：使用Map将节点作为key"><a href="#方法二：使用Map将节点作为key" class="headerlink" title="方法二：使用Map将节点作为key"></a>方法二：使用Map将节点作为key</h3><h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>这里就是利用的Map的key唯一的特性，遍历链表，当发现map中已经存在当前遍历到的节点时，即我们是再一次来到了这个节点，证明链表存在环。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用Map将每一个走过的节点存进去</span></span><br><span class="line"><span class="comment"> * 在存之前get一下，如果get有值，说明之前存过，即证明有环</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">doesLinkedListHasCycle1</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">final</span> HashMap&lt;ListNode, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    ListNode p = head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (p.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(p)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(p, <span class="keyword">null</span>);</span><br><span class="line">        p = p.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找环的起点"><a href="#查找环的起点" class="headerlink" title="查找环的起点"></a>查找环的起点</h2><h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>查找环的起点的前提就是链表要存在环，所以此算法的前半部分就是利用了前面的快慢指针判断法，不同的是，当确定存在环的时候我们即跳出循环。</p>
+<p>这里有一个推导过程，我参考别人的博客。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://blog-images-1251718931.cos.ap-guangzhou.myqcloud.com/hexo_blog/20190726/01.png" alt="推导过程" title>
+                </div>
+                <div class="image-caption">推导过程</div>
+            </figure>
+
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/jiaobuchong/article/details/84727007" target="_blank" rel="noopener">https://blog.csdn.net/jiaobuchong/article/details/84727007</a></p>
+</blockquote>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><p>看懂了上面的推导过程，我们直接按照其实现对应的代码就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查找链表环的起点</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> null代表没有环</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">findCycleHead</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode pFast = head, pSlow = head;</span><br><span class="line">    <span class="comment">// 循环直到快慢指针相遇</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        pFast = pFast.next.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">        <span class="keyword">if</span> (pFast == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(pFast == pSlow) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 让快指针等于头节点，然后各自以1 的步长继续前进，直到再次相遇</span></span><br><span class="line">    <span class="comment">// 相遇点即为环的起始点</span></span><br><span class="line">    pFast = head;</span><br><span class="line">    <span class="comment">// 可以顺便计算出非环部分的长度</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        pFast = pFast.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="keyword">if</span> (pFast == pSlow) &#123;</span><br><span class="line">            System.out.println(<span class="string">"length of not cycle in this LinkedList: "</span> + i);</span><br><span class="line">            <span class="keyword">return</span> pFast;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="计算环的长度"><a href="#计算环的长度" class="headerlink" title="计算环的长度"></a>计算环的长度</h2><h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>这个算法依然用到了快慢指针，类比到生活中就像是两个人在操场跑步，一个人跑的快一个人跑的慢一点。</p>
+<p>我们现在假设快指针叫快男，慢指针叫慢哥</p>
+<p>在计算环长度这个算法中，快男和慢男同时在起点起跑，当快男第一次追上慢哥时（即快男已经领先一圈，假设这里时位置a），这是慢哥停下站在原地不动，快男继续跑，当快男再一次追上慢哥的时候（快男转了一圈回到位置a），所以刚刚快男走过的长度就是环的长度。类比到代码里应该就很好理解了。</p>
+<blockquote>
+<p>要注意的是极端条件的处理，防止异常情况的发生，让代码尽可能的健壮</p>
+</blockquote>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算环的长度，没有环就返回0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCycleLength</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode pFast = head, pSlow = head;</span><br><span class="line">    <span class="comment">// 直到相遇</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        pFast = pFast.next.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">        <span class="keyword">if</span> (pFast == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pFast == pSlow) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pFast停下，pSlow继续走，直到再次相遇 pSlow走过的长度即为环的长度</span></span><br><span class="line">    <span class="keyword">int</span> cycleLength = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">        cycleLength++;</span><br><span class="line">        <span class="keyword">if</span> (pSlow == pFast) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cycleLength;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-27T14:52:12.039Z" itemprop="dateUpdated">2019-07-27 22:52:12</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/11578/" target="_blank" rel="external">http://yoursite.com/posts/11578/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="侯骅十">
+            侯骅十
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/11578/&title=《单链表之判断表中是否存在环》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/11578/&title=《单链表之判断表中是否存在环》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/11578/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之判断表中是否存在环》 — Wayne's blog&url=http://yoursite.com/posts/11578/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/11578/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/53885/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">单链表之删除链表中倒数第n个节点</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/55684/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">单链表之：反转算法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>侯骅十 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/11578/&title=《单链表之判断表中是否存在环》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/11578/&title=《单链表之判断表中是否存在环》 — Wayne's blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/11578/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之判断表中是否存在环》 — Wayne's blog&url=http://yoursite.com/posts/11578/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/11578/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/11578/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
