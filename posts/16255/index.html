@@ -14,25 +14,25 @@
     
     
     
-    <title>单链表之查找单链表的中间节点 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <title>Redis应用实践——分布式锁 | Wayne&#39;s blog | 一个有情调的程序员</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="数据结构与算法">
-    <meta name="description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
-<meta name="keywords" content="数据结构与算法">
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="Redis应用实践——分布式锁应用实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。 为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。 但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那">
+<meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单链表之查找单链表的中间节点">
-<meta property="og:url" content="http://yoursite.com/posts/29610/index.html">
+<meta property="og:title" content="Redis应用实践——分布式锁">
+<meta property="og:url" content="http://yoursite.com/posts/16255/index.html">
 <meta property="og:site_name" content="Wayne&#39;s blog">
-<meta property="og:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta property="og:description" content="Redis应用实践——分布式锁应用实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。 为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。 但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T15:13:50.959Z">
+<meta property="og:updated_time" content="2019-10-03T04:45:30.748Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单链表之查找单链表的中间节点">
-<meta name="twitter:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta name="twitter:title" content="Redis应用实践——分布式锁">
+<meta name="twitter:description" content="Redis应用实践——分布式锁应用实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。 为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。 但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那">
     
         <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
     
@@ -120,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">单链表之查找单链表的中间节点</div>
+        <div class="flex-col header-title ellipsis">Redis应用实践——分布式锁</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,11 +142,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">单链表之查找单链表的中间节点</h1>
+        <h1 class="title">Redis应用实践——分布式锁</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished" class="page-time">
-  2019-07-28
+                <time datetime="2019-10-03T04:42:48.000Z" itemprop="datePublished" class="page-time">
+  2019-10-03
 </time>
 
 
@@ -165,17 +165,17 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#单链表之查找单链表的中间节点"><span class="post-toc-number">1.</span> <span class="post-toc-text">单链表之查找单链表的中间节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis应用实践——分布式锁"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis应用实践——分布式锁</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#应用"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">应用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#超时问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">超时问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可重入锁"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">可重入锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#补充：可重入锁和不可重入锁参考"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">补充：可重入锁和不可重入锁参考</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-单链表之查找单链表的中间节点" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-Redis应用实践——分布式锁" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">单链表之查找单链表的中间节点</h1>
+        <h1 class="post-card-title">Redis应用实践——分布式锁</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-07-28 12:14:59" datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished">2019-07-28</time>
+            <time class="post-time" title="2019-10-03 12:42:48" datetime="2019-10-03T04:42:48.000Z" itemprop="datePublished">2019-10-03</time>
 
             
 
@@ -188,13 +188,13 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="单链表之查找单链表的中间节点"><a href="#单链表之查找单链表的中间节点" class="headerlink" title="单链表之查找单链表的中间节点"></a>单链表之查找单链表的中间节点</h1><p>这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 链表节点个数为奇数时返回中间节点</span></span><br><span class="line"><span class="comment"> * 为偶数时返回靠右的中间节点</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">findMiddleNode</span><span class="params">(ListNode head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode pSlow = head, pFast = head.next;</span><br><span class="line">    <span class="keyword">while</span> (pFast != <span class="keyword">null</span> &amp;&amp; pFast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">        pFast = pFast.next.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pFast == null时为链表个数奇数个，否则为偶数个（取决于快指针最开始从哪里起始）</span></span><br><span class="line">    <span class="keyword">return</span> pFast==<span class="keyword">null</span>? pSlow:pSlow.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意：这里会涉及到链表长度是偶数还是奇数的问题，可以看return语句中的三目运算，理解了之后就可以根据自己的需求灵活调整。</p>
-</blockquote>
+            <h1 id="Redis应用实践——分布式锁"><a href="#Redis应用实践——分布式锁" class="headerlink" title="Redis应用实践——分布式锁"></a>Redis应用实践——分布式锁</h1><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。</p>
+<p>为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。</p>
+<p>但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那怎么解决呢？在Redis 2.8中作者加入了set指令的拓展参数，set lockname true <strong>ex</strong> 5 <strong>nx</strong> , 原生支持了原子操作。</p>
+<h2 id="超时问题"><a href="#超时问题" class="headerlink" title="超时问题"></a>超时问题</h2><p>上面的方案如果有些任务执行时间过长，那么释放了锁之后，临界区的代码还未执行完，第二个现成又拿到了锁，那么原来的的代码就不能严格的按照串行执行。所以redis分布式锁不推荐用于耗时较长的任务。</p>
+<p>还有要避免其他线程del掉自己的锁，可以使用随机数或者uuid进行匹配，删除时先判断随机数是否一致，不一致不允许删除，但是匹配和删除也不能原子执行，所以这里可以借助lua脚本来执行。</p>
+<h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>java中也有可重入锁的类ReentrantLock，redis实现需要对set方法进行包装，使用ThreadLocal存放key的加锁次数。但是实际项目中最好不要使用可重入锁，可以通过业务的逻辑上调整完全避免使用可重入锁。</p>
+<h2 id="补充：可重入锁和不可重入锁参考"><a href="#补充：可重入锁和不可重入锁参考" class="headerlink" title="补充：可重入锁和不可重入锁参考"></a>补充：可重入锁和不可重入锁参考</h2><p><a href="https://blog.csdn.net/rickiyeat/article/details/78314451" target="_blank" rel="noopener">https://blog.csdn.net/rickiyeat/article/details/78314451</a></p>
 
         </div>
 
@@ -203,12 +203,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-27T15:13:50.959Z" itemprop="dateUpdated">2019-07-27 23:13:50</time>
+    Last updated: <time datetime="2019-10-03T04:45:30.748Z" itemprop="dateUpdated">2019-10-03 12:45:30</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/29610/" target="_blank" rel="external">http://yoursite.com/posts/29610/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/16255/" target="_blank" rel="external">http://yoursite.com/posts/16255/</a>
         
     </div>
     
@@ -229,7 +229,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
 
 
             
@@ -239,7 +239,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/16255/&title=《Redis应用实践——分布式锁》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -249,22 +249,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/16255/&title=《Redis应用实践——分布式锁》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/16255/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——分布式锁》 — Wayne's blog&url=http://yoursite.com/posts/16255/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/16255/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -287,18 +287,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/posts/53971/" id="post-prev" class="post-nav-link">
+      <a href="/posts/10625/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Redis基础数据结构</h4>
+        <h4 class="title">Redis应用实践——延时队列</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/30700/" id="post-next" class="post-nav-link">
+      <a href="/posts/53971/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">单链表之合并两个有序单链表</h4>
+        <h4 class="title">Redis基础数据结构</h4>
       </a>
     </div>
   
@@ -397,7 +397,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/16255/&title=《Redis应用实践——分布式锁》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -407,22 +407,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/16255/&title=《Redis应用实践——分布式锁》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/16255/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——分布式锁》 — Wayne's blog&url=http://yoursite.com/posts/16255/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/16255/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -433,7 +433,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/29610/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/16255/" alt="微信分享二维码">
 </div>
 
 

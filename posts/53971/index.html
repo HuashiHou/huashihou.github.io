@@ -14,25 +14,25 @@
     
     
     
-    <title>单链表之查找单链表的中间节点 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <title>Redis基础数据结构 | Wayne&#39;s blog | 一个有情调的程序员</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="数据结构与算法">
-    <meta name="description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
-<meta name="keywords" content="数据结构与算法">
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="Redis基础数据结构基础数据结构string key -value键值对(set, get)  计数 自增自减(incrby)   list 链表  可以用左进右出或者右进左出实现队列（rpush, lpop)  右进右出实现栈（rpush, rpop)  慢操作(lindex, ltrim, lrange)  快速链表   hash 相当于java中的HashMap  key对应一个hash结">
+<meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单链表之查找单链表的中间节点">
-<meta property="og:url" content="http://yoursite.com/posts/29610/index.html">
+<meta property="og:title" content="Redis基础数据结构">
+<meta property="og:url" content="http://yoursite.com/posts/53971/index.html">
 <meta property="og:site_name" content="Wayne&#39;s blog">
-<meta property="og:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta property="og:description" content="Redis基础数据结构基础数据结构string key -value键值对(set, get)  计数 自增自减(incrby)   list 链表  可以用左进右出或者右进左出实现队列（rpush, lpop)  右进右出实现栈（rpush, rpop)  慢操作(lindex, ltrim, lrange)  快速链表   hash 相当于java中的HashMap  key对应一个hash结">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T15:13:50.959Z">
+<meta property="og:updated_time" content="2019-10-03T04:44:43.378Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单链表之查找单链表的中间节点">
-<meta name="twitter:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta name="twitter:title" content="Redis基础数据结构">
+<meta name="twitter:description" content="Redis基础数据结构基础数据结构string key -value键值对(set, get)  计数 自增自减(incrby)   list 链表  可以用左进右出或者右进左出实现队列（rpush, lpop)  右进右出实现栈（rpush, rpop)  慢操作(lindex, ltrim, lrange)  快速链表   hash 相当于java中的HashMap  key对应一个hash结">
     
         <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
     
@@ -120,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">单链表之查找单链表的中间节点</div>
+        <div class="flex-col header-title ellipsis">Redis基础数据结构</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,11 +142,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">单链表之查找单链表的中间节点</h1>
+        <h1 class="title">Redis基础数据结构</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished" class="page-time">
-  2019-07-28
+                <time datetime="2019-10-03T04:42:43.000Z" itemprop="datePublished" class="page-time">
+  2019-10-03
 </time>
 
 
@@ -165,17 +165,17 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#单链表之查找单链表的中间节点"><span class="post-toc-number">1.</span> <span class="post-toc-text">单链表之查找单链表的中间节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis基础数据结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis基础数据结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础数据结构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">基础数据结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#string"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">string</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">list</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#hash"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">hash</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#set"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#zset"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">zset</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#容器型数据结构的通用规则"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">容器型数据结构的通用规则</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-单链表之查找单链表的中间节点" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-Redis基础数据结构" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">单链表之查找单链表的中间节点</h1>
+        <h1 class="post-card-title">Redis基础数据结构</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-07-28 12:14:59" datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished">2019-07-28</time>
+            <time class="post-time" title="2019-10-03 12:42:43" datetime="2019-10-03T04:42:43.000Z" itemprop="datePublished">2019-10-03</time>
 
             
 
@@ -188,13 +188,61 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="单链表之查找单链表的中间节点"><a href="#单链表之查找单链表的中间节点" class="headerlink" title="单链表之查找单链表的中间节点"></a>单链表之查找单链表的中间节点</h1><p>这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 链表节点个数为奇数时返回中间节点</span></span><br><span class="line"><span class="comment"> * 为偶数时返回靠右的中间节点</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">findMiddleNode</span><span class="params">(ListNode head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode pSlow = head, pFast = head.next;</span><br><span class="line">    <span class="keyword">while</span> (pFast != <span class="keyword">null</span> &amp;&amp; pFast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">        pFast = pFast.next.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pFast == null时为链表个数奇数个，否则为偶数个（取决于快指针最开始从哪里起始）</span></span><br><span class="line">    <span class="keyword">return</span> pFast==<span class="keyword">null</span>? pSlow:pSlow.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意：这里会涉及到链表长度是偶数还是奇数的问题，可以看return语句中的三目运算，理解了之后就可以根据自己的需求灵活调整。</p>
-</blockquote>
+            <h1 id="Redis基础数据结构"><a href="#Redis基础数据结构" class="headerlink" title="Redis基础数据结构"></a>Redis基础数据结构</h1><h2 id="基础数据结构"><a href="#基础数据结构" class="headerlink" title="基础数据结构"></a>基础数据结构</h2><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ul>
+<li><p>key -value键值对(set, get)</p>
+</li>
+<li><p>计数 自增自减(incrby)</p>
+</li>
+</ul>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><ul>
+<li><p>链表</p>
+</li>
+<li><p>可以用左进右出或者右进左出实现队列（rpush, lpop)</p>
+</li>
+<li><p>右进右出实现栈（rpush, rpop)</p>
+</li>
+<li><p>慢操作(lindex, ltrim, lrange)</p>
+</li>
+<li><p>快速链表</p>
+</li>
+</ul>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><ul>
+<li><p>相当于java中的HashMap</p>
+</li>
+<li><p>key对应一个hash结构 (hset, hget, hlen, hmset)</p>
+</li>
+<li><p>扩容时使用渐进rehash避免阻塞</p>
+</li>
+<li><p>对hash中的单个字段进行计数(hincrby)</p>
+</li>
+</ul>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><ul>
+<li><p>相当于java中的HashSet，即一个所有value为NULL的HashMap</p>
+</li>
+<li><p>自动去重</p>
+</li>
+<li><p>sadd, smembers, sismember, spop</p>
+</li>
+<li><p>scard获取长度</p>
+</li>
+</ul>
+<h3 id="zset"><a href="#zset" class="headerlink" title="zset"></a>zset</h3><ul>
+<li><p>可以理解为在set基础上为每个value加一个score字段，自动按有序</p>
+</li>
+<li><p>zadd, zrange, zrevrange, zscore, zrangebyscore, zrem</p>
+</li>
+<li><p>zcard获取长度</p>
+</li>
+<li><p>底层使用跳表数据结构，兼顾了查询和插入删除的操作性能。</p>
+</li>
+</ul>
+<h3 id="容器型数据结构的通用规则"><a href="#容器型数据结构的通用规则" class="headerlink" title="容器型数据结构的通用规则"></a>容器型数据结构的通用规则</h3><p>list, set, hash, zset 都是容器型数据结构，他们同享这两条通用规则。</p>
+<ol start="2">
+<li><p>create if not exists</p>
+</li>
+<li><p>drop if no elements</p>
+</li>
+</ol>
 
         </div>
 
@@ -203,12 +251,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-27T15:13:50.959Z" itemprop="dateUpdated">2019-07-27 23:13:50</time>
+    Last updated: <time datetime="2019-10-03T04:44:43.378Z" itemprop="dateUpdated">2019-10-03 12:44:43</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/29610/" target="_blank" rel="external">http://yoursite.com/posts/29610/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/53971/" target="_blank" rel="external">http://yoursite.com/posts/53971/</a>
         
     </div>
     
@@ -229,7 +277,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
 
 
             
@@ -239,7 +287,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/53971/&title=《Redis基础数据结构》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -249,22 +297,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/53971/&title=《Redis基础数据结构》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/53971/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis基础数据结构》 — Wayne's blog&url=http://yoursite.com/posts/53971/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/53971/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -287,18 +335,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/posts/53971/" id="post-prev" class="post-nav-link">
+      <a href="/posts/16255/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Redis基础数据结构</h4>
+        <h4 class="title">Redis应用实践——分布式锁</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/30700/" id="post-next" class="post-nav-link">
+      <a href="/posts/29610/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">单链表之合并两个有序单链表</h4>
+        <h4 class="title">单链表之查找单链表的中间节点</h4>
       </a>
     </div>
   
@@ -397,7 +445,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/53971/&title=《Redis基础数据结构》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -407,22 +455,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/53971/&title=《Redis基础数据结构》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/53971/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis基础数据结构》 — Wayne's blog&url=http://yoursite.com/posts/53971/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/53971/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -433,7 +481,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/29610/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/53971/" alt="微信分享二维码">
 </div>
 
 

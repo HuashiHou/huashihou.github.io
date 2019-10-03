@@ -14,25 +14,25 @@
     
     
     
-    <title>单链表之查找单链表的中间节点 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <title>Redis应用实践——简单限流与漏斗限流 | Wayne&#39;s blog | 一个有情调的程序员</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="数据结构与算法">
-    <meta name="description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
-<meta name="keywords" content="数据结构与算法">
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="Redis应用实践——简单限流与漏斗限流简单限流实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。  zset的score存储时间戳。  代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。  给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）   漏斗限流如果自己实现一个漏斗算法需要如下  定义容量、漏水速率、漏水时间、剩余容量等  每次">
+<meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单链表之查找单链表的中间节点">
-<meta property="og:url" content="http://yoursite.com/posts/29610/index.html">
+<meta property="og:title" content="Redis应用实践——简单限流与漏斗限流">
+<meta property="og:url" content="http://yoursite.com/posts/50064/index.html">
 <meta property="og:site_name" content="Wayne&#39;s blog">
-<meta property="og:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta property="og:description" content="Redis应用实践——简单限流与漏斗限流简单限流实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。  zset的score存储时间戳。  代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。  给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）   漏斗限流如果自己实现一个漏斗算法需要如下  定义容量、漏水速率、漏水时间、剩余容量等  每次">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T15:13:50.959Z">
+<meta property="og:updated_time" content="2019-10-03T04:46:24.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单链表之查找单链表的中间节点">
-<meta name="twitter:description" content="单链表之查找单链表的中间节点这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。 思路使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。 代码1234567891011121314151617181920/** * 链表节点个数为奇数时返回中间节点 * 为偶数时返回靠右的中间节点 * @param">
+<meta name="twitter:title" content="Redis应用实践——简单限流与漏斗限流">
+<meta name="twitter:description" content="Redis应用实践——简单限流与漏斗限流简单限流实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。  zset的score存储时间戳。  代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。  给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）   漏斗限流如果自己实现一个漏斗算法需要如下  定义容量、漏水速率、漏水时间、剩余容量等  每次">
     
         <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
     
@@ -120,7 +120,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">单链表之查找单链表的中间节点</div>
+        <div class="flex-col header-title ellipsis">Redis应用实践——简单限流与漏斗限流</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -142,11 +142,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">单链表之查找单链表的中间节点</h1>
+        <h1 class="title">Redis应用实践——简单限流与漏斗限流</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished" class="page-time">
-  2019-07-28
+                <time datetime="2019-10-03T04:43:35.000Z" itemprop="datePublished" class="page-time">
+  2019-10-03
 </time>
 
 
@@ -165,17 +165,17 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#单链表之查找单链表的中间节点"><span class="post-toc-number">1.</span> <span class="post-toc-text">单链表之查找单链表的中间节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#思路"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">思路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">代码</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis应用实践——简单限流与漏斗限流"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis应用实践——简单限流与漏斗限流</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简单限流"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">简单限流</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#漏斗限流"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">漏斗限流</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis中提供的漏斗限流"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">redis中提供的漏斗限流</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-单链表之查找单链表的中间节点" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-Redis应用实践——简单限流与漏斗限流" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">单链表之查找单链表的中间节点</h1>
+        <h1 class="post-card-title">Redis应用实践——简单限流与漏斗限流</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-07-28 12:14:59" datetime="2019-07-28T04:14:59.000Z" itemprop="datePublished">2019-07-28</time>
+            <time class="post-time" title="2019-10-03 12:43:35" datetime="2019-10-03T04:43:35.000Z" itemprop="datePublished">2019-10-03</time>
 
             
 
@@ -188,12 +188,29 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="单链表之查找单链表的中间节点"><a href="#单链表之查找单链表的中间节点" class="headerlink" title="单链表之查找单链表的中间节点"></a>单链表之查找单链表的中间节点</h1><p>这个实际上之前在反转算法中已经实现过了，这里给大家复习以下思路。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>使用快指针和慢指针的方法，快指针每次走两步，慢指针每次走一步，当快指针到达尾部的时候，慢指针刚好走过了链表长度的1/2 即指向了中间节点。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 链表节点个数为奇数时返回中间节点</span></span><br><span class="line"><span class="comment"> * 为偶数时返回靠右的中间节点</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">findMiddleNode</span><span class="params">(ListNode head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListNode pSlow = head, pFast = head.next;</span><br><span class="line">    <span class="keyword">while</span> (pFast != <span class="keyword">null</span> &amp;&amp; pFast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">        pFast = pFast.next.next;</span><br><span class="line">        pSlow = pSlow.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pFast == null时为链表个数奇数个，否则为偶数个（取决于快指针最开始从哪里起始）</span></span><br><span class="line">    <span class="keyword">return</span> pFast==<span class="keyword">null</span>? pSlow:pSlow.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+            <h1 id="Redis应用实践——简单限流与漏斗限流"><a href="#Redis应用实践——简单限流与漏斗限流" class="headerlink" title="Redis应用实践——简单限流与漏斗限流"></a>Redis应用实践——简单限流与漏斗限流</h1><h2 id="简单限流"><a href="#简单限流" class="headerlink" title="简单限流"></a>简单限流</h2><p>实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。</p>
+<ul>
+<li><p>zset的score存储时间戳。</p>
+</li>
+<li><p>代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。</p>
+</li>
+<li><p>给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）</p>
+</li>
+</ul>
+<h2 id="漏斗限流"><a href="#漏斗限流" class="headerlink" title="漏斗限流"></a>漏斗限流</h2><p>如果自己实现一个漏斗算法需要如下</p>
+<ul>
+<li><p>定义容量、漏水速率、漏水时间、剩余容量等</p>
+</li>
+<li><p>每次请求的时候用当前时间乘漏斗速率，看看需要的空间能不能满足需要的空间。</p>
+</li>
+</ul>
+<h2 id="redis中提供的漏斗限流"><a href="#redis中提供的漏斗限流" class="headerlink" title="redis中提供的漏斗限流"></a>redis中提供的漏斗限流</h2><p>Redis4.0中开始提供了一个限流模块：REdis-Cell，该模块提供了限流算法，并且提供了原子命令。</p>
+<p>该模块只有一条指令<code>cl.throttle</code></p>
+<p>使用方法<code>cl.throttle key 15 40 60 1</code></p>
 <blockquote>
-<p>注意：这里会涉及到链表长度是偶数还是奇数的问题，可以看return语句中的三目运算，理解了之后就可以根据自己的需求灵活调整。</p>
+<p>15 ：漏斗容量</p>
+<p>40 60: 40 operations /60 seconds 漏斗速率</p>
+<p>1：可选参数 quota</p>
 </blockquote>
 
         </div>
@@ -203,12 +220,12 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-27T15:13:50.959Z" itemprop="dateUpdated">2019-07-27 23:13:50</time>
+    Last updated: <time datetime="2019-10-03T04:46:24.720Z" itemprop="dateUpdated">2019-10-03 12:46:24</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/29610/" target="_blank" rel="external">http://yoursite.com/posts/29610/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/posts/50064/" target="_blank" rel="external">http://yoursite.com/posts/50064/</a>
         
     </div>
     
@@ -229,7 +246,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
 
 
             
@@ -239,7 +256,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/50064/&title=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -249,22 +266,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/50064/&title=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/50064/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&url=http://yoursite.com/posts/50064/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/50064/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -287,18 +304,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/posts/53971/" id="post-prev" class="post-nav-link">
+      <a href="/posts/19085/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Redis基础数据结构</h4>
+        <h4 class="title">Redis应用实践——GeoHash</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/posts/30700/" id="post-next" class="post-nav-link">
+      <a href="/posts/3209/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">单链表之合并两个有序单链表</h4>
+        <h4 class="title">Redis应用实践——布隆过滤器</h4>
       </a>
     </div>
   
@@ -397,7 +414,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/50064/&title=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -407,22 +424,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/29610/&title=《单链表之查找单链表的中间节点》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/50064/&title=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/29610/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/posts/50064/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单链表之查找单链表的中间节点》 — Wayne's blog&url=http://yoursite.com/posts/29610/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——简单限流与漏斗限流》 — Wayne's blog&url=http://yoursite.com/posts/50064/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/29610/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/posts/50064/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -433,7 +450,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/29610/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/posts/50064/" alt="微信分享二维码">
 </div>
 
 

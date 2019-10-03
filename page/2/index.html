@@ -155,10 +155,10 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-关于token机制与JWT标准" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-单链表之合并两个有序单链表" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-06-05 15:36:18" datetime="2019-06-05T07:36:18.000Z" itemprop="datePublished">2019-06-05</time>
+        <time class="post-time" title="2019-07-27 22:14:42" datetime="2019-07-27T14:14:42.000Z" itemprop="datePublished">2019-07-27</time>
 
         
 
@@ -170,7 +170,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/posts/33574/">关于token机制与JWT标准</a>
+      <a class="post-title-link" href="/posts/30700/">单链表之合并两个有序单链表</a>
     </h3>
   
 
@@ -180,11 +180,379 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        关于token机制与JWT标准在传统的web单体项目中，我们的会话通常使用session和cookie两样来实现。
-传统的cookie/session实现session是保存在服务器端的会话，使用cookie在客户端保存一个session id，每次发送请求的时候带上这个cookie服务端就可以很容易的了解当前用户是否与服务端建立了会话，以及会话是否过期等等。在单体项目中的这种实现机制相对来...
+        单链表之合并两个有序单链表题目说的是：合并两个有序的单链表，两个链表既然都有序，那其实我们要做的工作就不是很多了，如果两个链表是无序的，那我们还需要各自对两个链表进行排序再进行合并的操作。
+思路一：遍历实现这种实现方式思路比较清晰，代码也比较容易理解，但是较为冗长，我自己没有进行实现，大家可以点击链接去作者的博客了解一下。
+思路二：递归实现不得不说递归的实现方法真的太巧妙了， 几行代码解决问...
     
 
-        <a href="/posts/33574/" class="post-more waves-effect waves-button">
+        <a href="/posts/30700/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-单链表之删除链表中倒数第n个节点" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-27 22:14:26" datetime="2019-07-27T14:14:26.000Z" itemprop="datePublished">2019-07-27</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/53885/">单链表之删除链表中倒数第n个节点</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        单链表之删除链表中倒数第n个节点这篇依然是学习专栏《数据结构与算法之美》链表相关内容的拓展。
+删除链表中倒数第n个节点其实有几种不同的思路，
+
+可以先遍历一遍记下每个节点的位置，最后再遍历找到倒数第n个节点进行删除
+
+学习过时间复杂度分析的同学应该就会发现，这里要遍历两次，在最坏的情况下（要删除的是倒数第一个节点），那么消耗的时间就可以达到2T(n).
+
+使用快慢指针，快指针指向慢指针后的n...
+    
+
+        <a href="/posts/53885/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-单链表之判断表中是否存在环" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-27 22:13:58" datetime="2019-07-27T14:13:58.000Z" itemprop="datePublished">2019-07-27</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/11578/">单链表之判断表中是否存在环</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        单链表之判断表中是否存在环这篇依然是学习专栏《数据结构与算法之美》的拓展练习。链表中的环其实是一个挺有趣的问题，如果链表中存在环，对其进行遍历的时候就会发现next永远存在节点，循环往复永远不会终止。所以我们在遍历链表之前还是判断链表中是否存在环安全一点。
+这篇文章不止讲解了如何判断链表中是否存在环，还贴出了链表中非环部分的长度、环的长度、环的起始点这些算法。
+判断链表中是否存在环方法一：使...
+    
+
+        <a href="/posts/11578/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-单链表之：反转算法" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-20 15:13:12" datetime="2019-07-20T07:13:12.000Z" itemprop="datePublished">2019-07-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/55684/">单链表之：反转算法</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        单链表之：链表反转算法上一篇博客讲述了一些链表的知识以及判断是否为回文串的算法，详见如何判断一个单链表是否为回文串？
+一、递归方法思路从头节点开始，递归调用头节点的next，实际上就是从尾节点一次反转各个节点的指针指向。
+
+                
+                    
+                    
+                
+         ...
+    
+
+        <a href="/posts/55684/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-专栏学习笔记：为什么很多编程语言中数组都从0开始编号？" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-20 11:14:32" datetime="2019-07-20T03:14:32.000Z" itemprop="datePublished">2019-07-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/7261/">专栏学习笔记：为什么很多编程语言中数组都从0开始编号？</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        专栏学习笔记：为什么很多编程语言中数组都从0开始编号？两个概念线性表除了数组，链表、队列、栈等也是线性表结构。
+非线性表二叉树、堆、图等都是非线性表，之所以叫非先行是因为 数据在非线性表中并不是简单的前后关系。
+数组越界问题在java和c中的差别由于在c语言中，只要不是受限的内存，所有的内存空间都可以是自由访问的。所以当C语言中数组的下标超过了数组的长度，并不会直接出错，而是会出现其他奇怪的...
+    
+
+        <a href="/posts/7261/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-如何判断一个单链表是否为回文串？" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-20 10:58:10" datetime="2019-07-20T02:58:10.000Z" itemprop="datePublished">2019-07-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/64872/">如何判断一个单链表是否为回文串？</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        如何判断一个单链表是否为回文串？前情这道题是极客时间专栏数据结构与算法之美《06 | 链表（上）：如何实现LRU缓存淘汰算法?》里面的一道思考题，同时也是leetcode上的一道题目，原题为：https://leetcode.com/problems/palindrome-linked-list/
+由于我在算法方面的基础比较薄弱，所以直接去看了别人的解决方法，也花了好一会才看懂，加上照着敲一...
+    
+
+        <a href="/posts/64872/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构与算法/">数据结构与算法</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-深入理解Tomcat之一：Tomcat基础架构" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-06 17:26:18" datetime="2019-07-06T09:26:18.000Z" itemprop="datePublished">2019-07-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/24480/">深入理解Tomcat之一：Tomcat基础架构</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        深入理解Tomcat之一：Tomcat基础架构Tomcat的定义（来自wiki百科）Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如**Tomcat管理和控制平台、安全域管理和Tomc...
+    
+
+        <a href="/posts/24480/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-深入理解Tomcat之二：自己动手实现一个简单的tomcat" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-07-06 17:26:18" datetime="2019-07-06T09:26:18.000Z" itemprop="datePublished">2019-07-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/6083/">深入理解Tomcat之二：自己动手实现一个简单的Tomcat</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        深入理解Tomcat之二：自己动手实现一个简单的Tomcat学习一个新的知识的过程就是 看别人的文章、听别人讲、自己查资料、自己给别人讲。我们对于新知识的认识成都以及理解深度都是在整个过程中不断的加深的。所以我一直提倡大家要乐于分享，当你给别人用组织系统化的语言或者文章将你头脑中的知识输出来，你就会发现，你对之前知识的理解又加深了一个程度。 而这一篇手写tomcat，其实也是我在学习tomc...
+    
+
+        <a href="/posts/6083/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Spring中的事件简述与Guava的EventBus" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-06-11 17:26:18" datetime="2019-06-11T09:26:18.000Z" itemprop="datePublished">2019-06-11</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/posts/38349/">Spring中的事件简述与Guava的EventBus</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Spring中的事件简述与Guava的EventBusSpring的事件关键类
+org.springframework.context.ApplicationEvent
+
+org.springframework.context.ApplicationListener
+
+
+使用容器触发事件，applicationContext发布事件。
+简单实现逻辑
+自定义订阅和通知事件，继承Applicat...
+    
+
+        <a href="/posts/38349/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -243,179 +611,12 @@
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-如何给自己的网站添加小绿锁" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-05 15:36:18" datetime="2019-06-05T07:36:18.000Z" itemprop="datePublished">2019-06-05</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/posts/2/">如何给自己的网站添加小绿锁</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        如何给自己的网站添加小绿锁首先 要值得庆祝的是我的网站通过备案了
-之前我的博客是用的hexo博客，项目托管在github.io上，在本地使用Markdown写好文章 编译发布到git仓库就可以了。因此也无需备案。不过发现，github的访问速度不稳定，时快时慢就比较坑爹
-
-前一阵刚好赶上了阿里云的双11活动，直接298买了个最低配的3年，寻思买来放放博客，自己的小项目什么的都挺好。刚好朋友最...
-    
-
-        <a href="/posts/2/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-深入理解MyBatis（一）" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-05 15:36:18" datetime="2019-06-05T07:36:18.000Z" itemprop="datePublished">2019-06-05</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/posts/4/">深入理解MyBatis（一）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        深入理解MyBatis（一）MyBatis的基本运行过程
-输入配置文件的文件流
-
-使用SqlSessionFactoryBuilder根据配置文件创建SqlSessionFactory
-
-通过SqlSessionFactory获取会话SqlSession
-
-从SqlSession获取Executor
-
-Executor读取并执行sql语句
-
-StatementHandler处理jdbc的st...
-    
-
-        <a href="/posts/4/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-跨域资源共享CORS 详解" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-05 15:36:18" datetime="2019-06-05T07:36:18.000Z" itemprop="datePublished">2019-06-05</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/posts/5/">跨域资源共享CORS 详解</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        跨域资源共享CORS 详解http://www.ruanyifeng.com/blog/2016/04/cors.html
-
-    
-
-        <a href="/posts/5/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-小工具：将传入的日期区间按日、周、月、季、年分隔成多个时间区间" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-02-03 12:33:18" datetime="2019-02-03T04:33:18.000Z" itemprop="datePublished">2019-02-03</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/posts/3/">小工具：将传入的日期区间按日、周、月、季、年分隔成多个时间区间</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        小工具：将传入的日期区间按日、周、月、季、年分隔成多个时间区间最近在做公司项目的时候，有一个需求是需要传入一个开始时间和一个结束时间。但是要按照统计的方式分别以日、周、月、季、年的方式来分组进行统计。这个问题其实有两个解决方案，一个是利用sql处理日期的字段格式化进行分组；另一种就是写一个通用一点的SQL，然后在service里处理这些日期，遍历调用这个接口。由于我们的需求对时间的要求比较复...
-    
-
-        <a href="/posts/3/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
     </div>
 </nav>
 
