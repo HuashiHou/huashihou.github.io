@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Wayne&#39;s blog</title>
+  <title>Kerry&#39;s blog</title>
   
   <subtitle>一个有情调的程序员</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -448,19 +448,19 @@
   </entry>
   
   <entry>
-    <title>关于token机制与JWT标准</title>
-    <link href="http://yoursite.com/posts/33574/"/>
-    <id>http://yoursite.com/posts/33574/</id>
+    <title>关于二分查找（折半查找）的即记录</title>
+    <link href="http://yoursite.com/posts/1/"/>
+    <id>http://yoursite.com/posts/1/</id>
     <published>2019-06-05T07:36:18.000Z</published>
-    <updated>2019-06-05T07:49:13.679Z</updated>
+    <updated>2019-06-05T07:47:40.675Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="关于token机制与JWT标准"><a href="#关于token机制与JWT标准" class="headerlink" title="关于token机制与JWT标准"></a>关于token机制与JWT标准</h1><p>在传统的web单体项目中，我们的会话通常使用session和cookie两样来实现。</p><h2 id="传统的cookie-session实现"><a href="#传统的cookie-session实现" class="headerlink" title="传统的cookie/session实现"></a>传统的cookie/session实现</h2><p>session是保存在服务器端的会话，使用cookie在客户端保存一个session id，每次发送请求的时候带上这个cookie服务端就可以很容易的了解当前用户是否与服务端建立了会话，以及会话是否过期等等。在单体项目中的这种实现机制相对来说是比较方便的。</p><p>使用这种机制存在的问题：</p><ol><li><p>当我们的项目变得越来越大，用户数量越来越多之后，每新建一个会话服务器就要多消耗空间来存储空间，这将使服务器内存的开销不断增加；</p></li><li><p>跨域问题，很多项目使用前后端分离开发，而且前后端也部署在不同的域，这将导致一系列跨域问题的发生；</p></li><li><p>可拓展性，只在服务器内存中存储session限制了可拓展性能；</p></li></ol><p>针对以上痛点，token机制的出现很好的解决了问题。</p><h2 id="token机制"><a href="#token机制" class="headerlink" title="token机制"></a>token机制</h2><p>使用token机制时，当用户请求时，会检查用户是否有携带token信息，或者token是否过期；未登录的话叫用户进行登录，然后服务端生成一串token返回给浏览器，可以存储在cookie或者localStorage里面。以后用户每一次发送的请求都会带上这个token。</p><p>token的组成一般是一些基础的信息，加上一个签名。这样服务器就无需存储session，每当收到一个新的请求，对token的签名进行验证，验证成功就可以进行下一步的操作。而且通常token可以存储在数据库中。</p><h2 id="JWT（Json-Web-Token）"><a href="#JWT（Json-Web-Token）" class="headerlink" title="JWT（Json Web Token）"></a>JWT（Json Web Token）</h2><p>广义上的jwt其实是token机制的一个实现标准，狭义上的jwt即是我们每次请求携带的token串。</p><p>jwt串由3部分组成，下面是一个例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span><br><span class="line">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.</span><br><span class="line">SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span><br></pre></td></tr></table></figure><p>第一部分为header为json格式</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">  <span class="string">"alg"</span>: <span class="string">"HS256"</span>, 加密算法类型</span><br><span class="line">  <span class="string">"typ"</span>: <span class="string">"JWT"</span> token类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第二部分为payload 同样为json：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;, 保留claim subject代表这个jwt的主体</span><br><span class="line">  &quot;name&quot;: &quot;John Doe&quot;, 自定义的claim</span><br><span class="line">  &quot;iat&quot;: 1516239022 保留claim 时间戳 代表jwt的签发时间</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第三部分就是用header中指定的算法结合payload的内容制造出的签名。</p><blockquote><p>jwt串只是使用base64编码，并没有进行加密，所以任何人获取到jwt串都可以拿到其中传输的内容。</p></blockquote><p>当服务端获取到这一tokne之后，会有如下事件流：</p><ol><li><p>使用base64将jwt串进行还原</p></li><li><p>使用header中的算法对签名部分进行还原</p></li><li><p>对比直接从jwt中解析出的payload部分和使用算法还原的payload</p><ol><li><p>如果不一致 验证失败</p></li><li><p>一致则验证成功</p></li></ol></li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>token机制是针对无状态的http比较好的一个会话管理机制；对前后端分离项目、用户量大的项目都更加友好；对移动端的支持也更好。</p><p>参考资料：</p><p><a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a></p><p><a href="https://www.cnblogs.com/moyand/p/9047978.html" target="_blank" rel="noopener">https://www.cnblogs.com/moyand/p/9047978.html</a></p><p><a href="https://www.cnblogs.com/lyzg/p/6028341.html" target="_blank" rel="noopener">https://www.cnblogs.com/lyzg/p/6028341.html</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="关于二分查找（折半查找）的即记录"><a href="#关于二分查找（折半查找）的即记录" class="headerlink" title="关于二分查找（折半查找）的即记录"></a>关于二分查找（折半查找）的即记录</h2><p>之前其实也学习过二分查找的理念，但是一直有一个模糊的地方就是中间元素的选取。</p><p>二分查找需要的数组需要是有序的。</p><h3 id="二分查找的步骤"><a href="#二分查找的步骤" class="headerlink" title="二分查找的步骤"></a>二分查找的步骤</h3><ol><li><p>确定数组的中间元素</p></li><li><p>将待查找元素与中间元素比较</p></li><li><p>如果大于中间元素，则到右边的数组查找，反之同理</p></li><li><p>如果中间元素等于待查找元素，那么查找成功。</p></li></ol><p>之前一直迷惑的一点就是第一步当中的中间元素的选取，因为数组会有两种情况，一种是元素的个数为偶数，另一种是数组元素个数为奇数。</p><p>今天到网上查找相关资料，才补上了这个基础的知识：</p><p>中间元素的选取可以使用如下公式：<code>mid = left + (right - left)/2;</code></p><p>这样不论当数组元素个数为偶数或者奇数的时候都可以正确选取到中间元素。</p><h3 id="二分查找的思想"><a href="#二分查找的思想" class="headerlink" title="二分查找的思想"></a>二分查找的思想</h3><p>其实二分查找是利用的算法设计思想中的 分治法，一步一步缩小查找范围，最终得到问题的解。</p><blockquote><p>分治法：将一个复杂的问题分解为多个相同或相似的子问题，再对子问题进行求解，进而得到问题的解。</p></blockquote><p>二分法的求解过程可以用二叉树来描述，对于一个有序的数组，根结点为最开始选取的中间元素，根结点的左右两个孩子分别为左数组的中间节点及右数组的中间节点，孩子的孩子同理；</p><p>所以通过查找树（判定树）可以看出查找的元素要经过几次比较以及跟哪些元素进行了比较。</p><h3 id="二分查找的时间复杂度"><a href="#二分查找的时间复杂度" class="headerlink" title="二分查找的时间复杂度"></a>二分查找的时间复杂度</h3><p>O(log2n)</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;关于token机制与JWT标准&quot;&gt;&lt;a href=&quot;#关于token机制与JWT标准&quot; class=&quot;headerlink&quot; title=&quot;关于token机制与JWT标准&quot;&gt;&lt;/a&gt;关于token机制与JWT标准&lt;/h1&gt;&lt;p&gt;在传统的web单体项目中，我们的会话
+        &lt;h2 id=&quot;关于二分查找（折半查找）的即记录&quot;&gt;&lt;a href=&quot;#关于二分查找（折半查找）的即记录&quot; class=&quot;headerlink&quot; title=&quot;关于二分查找（折半查找）的即记录&quot;&gt;&lt;/a&gt;关于二分查找（折半查找）的即记录&lt;/h2&gt;&lt;p&gt;之前其实也学习过二分查找的理
       
     
     </summary>

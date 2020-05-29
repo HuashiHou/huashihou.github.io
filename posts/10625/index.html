@@ -14,7 +14,7 @@
     
     
     
-    <title>Redis应用实践——延时队列 | Wayne&#39;s blog | 一个有情调的程序员</title>
+    <title>Redis应用实践——延时队列 | Kerry&#39;s blog | 一个有情调的程序员</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis应用实践——延时队列">
 <meta property="og:url" content="http://yoursite.com/posts/10625/index.html">
-<meta property="og:site_name" content="Wayne&#39;s blog">
+<meta property="og:site_name" content="Kerry&#39;s blog">
 <meta property="og:description" content="Redis应用实践消息队列 使用list实现  rpush, lpop 实现  客户端判断如果pop出的结果为空 可以sleep 1秒，防止连续不间断的查询浪费性能  使用brpop(blocking)更好的解决上面的问题  如果阻塞太久客户端会自动断开链接，所以代码要编写重试机制   延时队列 使用zset实现，score存放任务的到期处理时间  代码中使用zrangebyscore筛选出已到期">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-10-03T04:48:11.825Z">
@@ -34,7 +34,7 @@
 <meta name="twitter:title" content="Redis应用实践——延时队列">
 <meta name="twitter:description" content="Redis应用实践消息队列 使用list实现  rpush, lpop 实现  客户端判断如果pop出的结果为空 可以sleep 1秒，防止连续不间断的查询浪费性能  使用brpop(blocking)更好的解决上面的问题  如果阻塞太久客户端会自动断开链接，所以代码要编写重试机制   延时队列 使用zset实现，score存放任务的到期处理时间  代码中使用zrangebyscore筛选出已到期">
     
-        <link rel="alternate" type="application/atom+xml" title="Wayne&#39;s blog" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="Kerry&#39;s blog" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -254,7 +254,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Kerry's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -264,7 +264,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Kerry's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -274,7 +274,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——延时队列》 — Wayne's blog&url=http://yoursite.com/posts/10625/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——延时队列》 — Kerry's blog&url=http://yoursite.com/posts/10625/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -412,7 +412,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Wayne's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Kerry's blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -422,7 +422,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Wayne's blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/posts/10625/&title=《Redis应用实践——延时队列》 — Kerry's blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -432,7 +432,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——延时队列》 — Wayne's blog&url=http://yoursite.com/posts/10625/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis应用实践——延时队列》 — Kerry's blog&url=http://yoursite.com/posts/10625/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
