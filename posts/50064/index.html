@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="Wayne&#39;s blog">
 <meta property="og:description" content="Redis应用实践——简单限流与漏斗限流简单限流实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。  zset的score存储时间戳。  代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。  给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）   漏斗限流如果自己实现一个漏斗算法需要如下  定义容量、漏水速率、漏水时间、剩余容量等  每次">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-03T04:46:24.720Z">
+<meta property="og:updated_time" content="2019-10-03T04:48:11.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis应用实践——简单限流与漏斗限流">
 <meta name="twitter:description" content="Redis应用实践——简单限流与漏斗限流简单限流实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。  zset的score存储时间戳。  代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。  给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）   漏斗限流如果自己实现一个漏斗算法需要如下  定义容量、漏水速率、漏水时间、剩余容量等  每次">
@@ -220,7 +220,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-03T04:46:24.720Z" itemprop="dateUpdated">2019-10-03 12:46:24</time>
+    Last updated: <time datetime="2019-10-03T04:48:11.826Z" itemprop="dateUpdated">2019-10-03 12:48:11</time>
 </span><br>
 
 
@@ -396,7 +396,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>侯骅十 &copy; 2015 - 2019</span>
+        <p><span>侯骅十 &copy; 2015 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>

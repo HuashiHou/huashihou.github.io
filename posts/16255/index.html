@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="Wayne&#39;s blog">
 <meta property="og:description" content="Redis应用实践——分布式锁应用实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。 为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。 但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-03T04:45:30.748Z">
+<meta property="og:updated_time" content="2019-10-03T04:48:11.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis应用实践——分布式锁">
 <meta name="twitter:description" content="Redis应用实践——分布式锁应用实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。 为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。 但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那">
@@ -203,7 +203,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-03T04:45:30.748Z" itemprop="dateUpdated">2019-10-03 12:45:30</time>
+    Last updated: <time datetime="2019-10-03T04:48:11.825Z" itemprop="dateUpdated">2019-10-03 12:48:11</time>
 </span><br>
 
 
@@ -379,7 +379,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>侯骅十 &copy; 2015 - 2019</span>
+        <p><span>侯骅十 &copy; 2015 - 2020</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>

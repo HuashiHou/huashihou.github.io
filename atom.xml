@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-03T04:47:41.398Z</updated>
+  <updated>2019-10-03T04:48:11.824Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/posts/17414/"/>
     <id>http://yoursite.com/posts/17414/</id>
     <published>2019-10-03T04:43:44.000Z</published>
-    <updated>2019-10-03T04:47:41.398Z</updated>
+    <updated>2019-10-03T04:48:11.824Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践——scan指令"><a href="#Redis应用实践——scan指令" class="headerlink" title="Redis应用实践——scan指令"></a>Redis应用实践——scan指令</h1><p>从某种程度上来说，scan是来取代keys指令的。传统的keys指令不仅没有limit这类的参数，而且是通过遍历查找，复杂度是O(n)。</p><h2 id="scan的基本用法"><a href="#scan的基本用法" class="headerlink" title="scan的基本用法"></a>scan的基本用法</h2><ul><li><code>scan 0 match key99** count 1000</code></li></ul><p>上面的 0 为cursor游标参数，这条指令执行完，会返回一个游标， 返回的游标不为0则代表还没有遍历完成。</p><p>上面的 1000 为limit值，但是这个值并不是指定了返回结果集的数量，而是服务器本次遍历的字典槽位数量（约等于）。所以你会发现，设置了1000的limit，返回的结果可能只有10条左右。</p><h2 id="scan的遍历顺序"><a href="#scan的遍历顺序" class="headerlink" title="scan的遍历顺序"></a>scan的遍历顺序</h2><p>在你使用scan指令做了实验后，你可能发现，返回的游标并不是一次比一次大的。因为scan指令确实使用的不是从0开始顺序遍历的方法。</p><p>这是因为redis考虑到了字典扩容或者缩容的情况，所以使用了高位加法的方法来决定遍历的顺序。（原理代论证，这里不是很清楚）这样扩容后，可以继续从当前的槽往后遍历，之前的全部是已遍历过的，之后的都没有遍历过。</p><h2 id="渐进式rehash"><a href="#渐进式rehash" class="headerlink" title="渐进式rehash"></a>渐进式rehash</h2><p>在扩容的过程中，如果key比较大，那么对所有元素进行rehash将会消耗比较长的时间，而redis又是单线程的，所以采用了渐进式的策略，也就是同时维护两个数组，在查找元素时如果一个找不到就要区另一个里面找。scan命令也需要同时扫描新旧的槽位。</p><h2 id="大key扫描"><a href="#大key扫描" class="headerlink" title="大key扫描"></a>大key扫描</h2><p>如果一个key过大，在迁移时就会造成卡顿，而且在需要扩容时，也会一次性申请两倍大小的空间。</p><p>所以在业务开发中，尽量避免大key的产生，如果监控发现redis的内存大起大落，那就很可能时大key导致的问题。</p><p>redis-cli给我们提供了扫描大key的功能<code>redis-cli -h 127.0.0.1 -p 7001 --bigkeys</code></p>]]></content>
     
@@ -44,7 +44,7 @@
     <link href="http://yoursite.com/posts/19085/"/>
     <id>http://yoursite.com/posts/19085/</id>
     <published>2019-10-03T04:43:40.000Z</published>
-    <updated>2019-10-03T04:47:22.922Z</updated>
+    <updated>2019-10-03T04:48:11.824Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践——GeoHash"><a href="#Redis应用实践——GeoHash" class="headerlink" title="Redis应用实践——GeoHash"></a>Redis应用实践——GeoHash</h1><p>业界比较通用的距离排序算法，是GeoHash，Redis也使用了GeoHash算法。</p><p>可以用来实现附近的人，附近的单车，附近的司机等等功能。</p><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>主要思路是将二维的坐标映射为一维的整数，比较基础容易理解的如二刀法。把正方形切一刀，然后再二分切一刀，再切 越来越小，然后每个切出来的正方形都用00,01,02这样的数字来表示，切的越多，数字越长，位置也更精确。</p><p>Geo算法会继续对这个整数做一次base32编码。在Redis中，将这个编码作为value放入zset中，score使用 经纬度编成的52位编码，可以用来排序距离。</p><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul><li><p><code>geoadd``geodist``getpos</code></p></li><li><p><code>gethash</code></p></li><li><p><code>georadiusbymember</code>获取一定距离范围内的元素</p></li><li><p><code>georadius</code>提供坐标查询一定距离范围内的元素</p></li></ul><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>数据量很大之后，Geo的占用空间将会很大，如果单个key的数据过大，在迁移时会产生较大的性能影响。所以建议Geo使用单独的Redis实例部署。如果数据量更大，需要对Geo进行拆分，如按省市区来拆分。</p>]]></content>
     
@@ -67,7 +67,7 @@
     <link href="http://yoursite.com/posts/50064/"/>
     <id>http://yoursite.com/posts/50064/</id>
     <published>2019-10-03T04:43:35.000Z</published>
-    <updated>2019-10-03T04:46:24.720Z</updated>
+    <updated>2019-10-03T04:48:11.826Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践——简单限流与漏斗限流"><a href="#Redis应用实践——简单限流与漏斗限流" class="headerlink" title="Redis应用实践——简单限流与漏斗限流"></a>Redis应用实践——简单限流与漏斗限流</h1><h2 id="简单限流"><a href="#简单限流" class="headerlink" title="简单限流"></a>简单限流</h2><p>实现原理就是使用zset结构，加上滑动窗口的思路来实现简单的时间窗口滑动。</p><ul><li><p>zset的score存储时间戳。</p></li><li><p>代码中使用zremrangebyscore把时间窗口之前的访问记录都砍掉。</p></li><li><p>给每个新的记录设置一个过期时间（时间窗口的长度 可以再+1s）</p></li></ul><h2 id="漏斗限流"><a href="#漏斗限流" class="headerlink" title="漏斗限流"></a>漏斗限流</h2><p>如果自己实现一个漏斗算法需要如下</p><ul><li><p>定义容量、漏水速率、漏水时间、剩余容量等</p></li><li><p>每次请求的时候用当前时间乘漏斗速率，看看需要的空间能不能满足需要的空间。</p></li></ul><h2 id="redis中提供的漏斗限流"><a href="#redis中提供的漏斗限流" class="headerlink" title="redis中提供的漏斗限流"></a>redis中提供的漏斗限流</h2><p>Redis4.0中开始提供了一个限流模块：REdis-Cell，该模块提供了限流算法，并且提供了原子命令。</p><p>该模块只有一条指令<code>cl.throttle</code></p><p>使用方法<code>cl.throttle key 15 40 60 1</code></p><blockquote><p>15 ：漏斗容量</p><p>40 60: 40 operations /60 seconds 漏斗速率</p><p>1：可选参数 quota</p></blockquote>]]></content>
     
@@ -90,7 +90,7 @@
     <link href="http://yoursite.com/posts/3209/"/>
     <id>http://yoursite.com/posts/3209/</id>
     <published>2019-10-03T04:43:30.000Z</published>
-    <updated>2019-10-03T04:45:50.069Z</updated>
+    <updated>2019-10-03T04:48:11.826Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用⌚️——过滤器与限流"><a href="#Redis应用⌚️——过滤器与限流" class="headerlink" title="Redis应用⌚️——过滤器与限流"></a>Redis应用⌚️——过滤器与限流</h1><h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><p>比如新闻客户端，在推送新的新闻时，要过滤掉已经看过这条新闻的用户。那用什么方法来过滤呢，你可能会想到缓存一个集合，但是当用户量很大的时候，所有用户的阅读历史集合将是一个非常庞大的数据。</p><p>如果你们没有为用户提供“足迹”这样的需求的话，上面所说的功能就可以利用布隆过滤器来实现。</p><h3 id="什么是布隆过滤器"><a href="#什么是布隆过滤器" class="headerlink" title="什么是布隆过滤器"></a>什么是布隆过滤器</h3><p>布隆过滤器用来判断一个值是否不存在，但是不能完全准确的判断这个值是否一定存在，也就是会有误差，但是我们可以通过参数控制这个误差的概率。可以理解为一个不怎么精确的set结构，过滤时相当于contains方法。</p><p>在Java中，Guava里面提供了布隆过滤器的实现。</p><p>Redis中也提供了布隆过滤器的实现，在Redis 4.0后提供了布隆过滤器作为插件加入到Redis Server中。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>使用<code>bf.add</code> <code>bf.exists</code>指令进行基础操作。</p><p>使用<code>bf.madd``bf.mexists</code>进行批量操作。</p><h2 id="自定义参数的布隆过滤器"><a href="#自定义参数的布隆过滤器" class="headerlink" title="自定义参数的布隆过滤器"></a>自定义参数的布隆过滤器</h2><p>使用<code>bf.reserve</code>有三个参数<code>key</code> <code>error_rate</code> <code>initial_size</code>。</p><p>error_rate越低，所需的空间越大。</p><p>initial_size注意，要尽量设置的准确，一旦元素数量超过initial_size，误判率将会大幅度上升。</p><h2 id="布隆过滤器原理"><a href="#布隆过滤器原理" class="headerlink" title="布隆过滤器原理"></a>布隆过滤器原理</h2><p>底层是使用一个大的数组和几个无偏hash函数来实现的，所谓无偏就是可能把hash值算得比较均匀。</p><p>当执行add时，使用几个hash函数分别算出来结果，每个结果对应一个位置，然后将数组这几个位置上的值都设成1。</p><p>当执行exists时，同样将传入的value通过上面的hash函数进行计算，在结果对应的几个位置上判断，如果各位上都是1，即证明这个值存在。</p><blockquote><p>注意，证明值存在是会有误判的，因为存在可能 两个不同的value，通过hash计算出来的结果是完全一致的。</p></blockquote><p>所以只能保证value一定不存在，不能完全保证这个value存在。</p><blockquote><p>当这个数组越大的时候，存储也越稀疏，判断的准确性就会更高，但是占用的空间也会更大。</p></blockquote>]]></content>
     
@@ -113,7 +113,7 @@
     <link href="http://yoursite.com/posts/40227/"/>
     <id>http://yoursite.com/posts/40227/</id>
     <published>2019-10-03T04:43:13.000Z</published>
-    <updated>2019-10-03T04:48:02.339Z</updated>
+    <updated>2019-10-03T04:48:11.823Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践—HyperLogLog"><a href="#Redis应用实践—HyperLogLog" class="headerlink" title="Redis应用实践—HyperLogLog"></a>Redis应用实践—HyperLogLog</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>适用于精确度要求不是很高的统计需求。</p><p>比如你的网站上线运营了，老板想看看某个页面的uv有多少，你怎么办？</p><ol start="2"><li>给每个页面分配一个zset集合，当一个新用户访问到了，我们把用户id塞进集合就可以了，最后用scard统计集合的数量就ok了。</li></ol><p>这确实是一个比较简单可行的方案，但是如果你们的网站成了爆款，火爆的页面可能有几千万访问，怎么办？买内存条？</p><p>兄弟，大可不必..</p><p>Redis 为我们提供了一个数据结构就是为了给我们实现这样的功能的。</p><p>HyperLogLog在统计这样的数据时非常好用，因为它只占用非常少的空间。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul><li><p><code>pfadd key userid0</code></p></li><li><p><code>pfcount key</code></p></li><li><p>还可以使用<code>pfmerge</code>合并多个结果 真的是太贴心了</p></li></ul><blockquote><p>拓展阅读：指令为什么用pf开头？是因为HyperLogLog这个数据结构的发明人是Philippe Flajolet ，pf就是他名字的字母缩写。</p></blockquote><blockquote><p>Redis对HyperLogLog的存储进行了优化，在开始是，使用稀疏矩阵存储，空间占用很小，只有当超过了一定的阈值之后才会转变成稠密矩阵来存储，这时它将占用12kb的内存空间。</p></blockquote>]]></content>
     
@@ -136,7 +136,7 @@
     <link href="http://yoursite.com/posts/57747/"/>
     <id>http://yoursite.com/posts/57747/</id>
     <published>2019-10-03T04:43:10.000Z</published>
-    <updated>2019-10-03T04:46:42.906Z</updated>
+    <updated>2019-10-03T04:48:11.825Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践——位图"><a href="#Redis应用实践——位图" class="headerlink" title="Redis应用实践——位图"></a>Redis应用实践——位图</h1><h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p>因为只能存取0或1，适用于大量的bool类型数据，比如一年的签到记录，如果使用普通的key/value存储那么用户量上来之后的存储空间时惊人的。</p><p>如果使用位图存储，365天只需要365bit ，只需要46个字节就可以完全存储。</p><ul><li><p>使用setbit命令 <code>setbit key 0 1</code></p></li><li><p>使用getbit命令获取某一位上的值</p></li></ul><p>支持零存整取或者整存零取，零存即一个一个位进行set，整存就是直接set字符串。</p><ul><li><p>使用bitcount进行统计</p></li><li><p>使用bitpos进行查找</p></li></ul><h2 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h2><p>在Redis3.2之前，想一次行操作位图的多个位，需要使用管道来进行。但是3.2之后新增了一个强大的指令<code>bitfield</code>， 但一次最多只能操作64位。</p><ul><li>使用biefield进行批量操作 <code>bitfield key set u4/i4 value</code></li></ul><p>上面的u代表无符号数，i代表有符号数。</p><ul><li><code>bitfield key get u4 0</code></li></ul><p>代表从第一位取4位，结果时无符号数。</p><p>bitfield同时支持incrby自增操作。</p><h3 id="birfield中的incrby指令"><a href="#birfield中的incrby指令" class="headerlink" title="birfield中的incrby指令"></a>birfield中的incrby指令</h3><p><code>bitfield key incrby u4 2 1</code>代表从第三位开始，对接下来的4位无符号数+1。</p><p>如果加法发生上溢出或者下溢出，redis默认的策略时折返，比如1111 加一后溢出则这4位变成0000。</p><p>Redis贴心的提供了子指令供我们设置溢出后的策略，默认即是wrap–折返，还提供了fail–失败不执行（返回nil）， sat–饱和截断（保持在最大值）</p>]]></content>
     
@@ -159,7 +159,7 @@
     <link href="http://yoursite.com/posts/10625/"/>
     <id>http://yoursite.com/posts/10625/</id>
     <published>2019-10-03T04:42:54.000Z</published>
-    <updated>2019-10-03T04:47:01.869Z</updated>
+    <updated>2019-10-03T04:48:11.825Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践"><a href="#Redis应用实践" class="headerlink" title="Redis应用实践"></a>Redis应用实践</h1><h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><ul><li><p>使用list实现</p></li><li><p>rpush, lpop 实现</p></li><li><p>客户端判断如果pop出的结果为空 可以sleep 1秒，防止连续不间断的查询浪费性能</p></li><li><p>使用brpop(blocking)更好的解决上面的问题</p></li><li><p>如果阻塞太久客户端会自动断开链接，所以代码要编写重试机制</p></li></ul><h2 id="延时队列"><a href="#延时队列" class="headerlink" title="延时队列"></a>延时队列</h2><ul><li><p>使用zset实现，score存放任务的到期处理时间</p></li><li><p>代码中使用zrangebyscore筛选出已到期的任务</p></li><li><p>注意多线程时争抢任务的处理，拿到消息后，尝试调用rem执行删除这条消息，返回结果删除成功后才开始执行任务。</p></li><li><p>优化：可以使用lua脚本将zrangebyscore和zrem变成一个原子操作，避免多次争抢的发生。</p></li></ul>]]></content>
     
@@ -182,7 +182,7 @@
     <link href="http://yoursite.com/posts/16255/"/>
     <id>http://yoursite.com/posts/16255/</id>
     <published>2019-10-03T04:42:48.000Z</published>
-    <updated>2019-10-03T04:45:30.748Z</updated>
+    <updated>2019-10-03T04:48:11.825Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis应用实践——分布式锁"><a href="#Redis应用实践——分布式锁" class="headerlink" title="Redis应用实践——分布式锁"></a>Redis应用实践——分布式锁</h1><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>实现分布式锁的开始需要“占坑”， 使用setnx(set if not exists)命令，如果key存在了，其他客户端尝试set时就会报错；等到当前客户端完成任务执行del后，其他客户端方可进入。</p><p>为了避免拿到锁之后客户端挂了导致永远不能释放锁，加一个过期时间使用expire指令。</p><p>但是setnx 和 expire是两条指令不能原子执行，还是有发生死锁的风险，那怎么解决呢？在Redis 2.8中作者加入了set指令的拓展参数，set lockname true <strong>ex</strong> 5 <strong>nx</strong> , 原生支持了原子操作。</p><h2 id="超时问题"><a href="#超时问题" class="headerlink" title="超时问题"></a>超时问题</h2><p>上面的方案如果有些任务执行时间过长，那么释放了锁之后，临界区的代码还未执行完，第二个现成又拿到了锁，那么原来的的代码就不能严格的按照串行执行。所以redis分布式锁不推荐用于耗时较长的任务。</p><p>还有要避免其他线程del掉自己的锁，可以使用随机数或者uuid进行匹配，删除时先判断随机数是否一致，不一致不允许删除，但是匹配和删除也不能原子执行，所以这里可以借助lua脚本来执行。</p><h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>java中也有可重入锁的类ReentrantLock，redis实现需要对set方法进行包装，使用ThreadLocal存放key的加锁次数。但是实际项目中最好不要使用可重入锁，可以通过业务的逻辑上调整完全避免使用可重入锁。</p><h2 id="补充：可重入锁和不可重入锁参考"><a href="#补充：可重入锁和不可重入锁参考" class="headerlink" title="补充：可重入锁和不可重入锁参考"></a>补充：可重入锁和不可重入锁参考</h2><p><a href="https://blog.csdn.net/rickiyeat/article/details/78314451" target="_blank" rel="noopener">https://blog.csdn.net/rickiyeat/article/details/78314451</a></p>]]></content>
     
@@ -205,7 +205,7 @@
     <link href="http://yoursite.com/posts/53971/"/>
     <id>http://yoursite.com/posts/53971/</id>
     <published>2019-10-03T04:42:43.000Z</published>
-    <updated>2019-10-03T04:44:43.378Z</updated>
+    <updated>2019-10-03T04:48:11.822Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Redis基础数据结构"><a href="#Redis基础数据结构" class="headerlink" title="Redis基础数据结构"></a>Redis基础数据结构</h1><h2 id="基础数据结构"><a href="#基础数据结构" class="headerlink" title="基础数据结构"></a>基础数据结构</h2><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ul><li><p>key -value键值对(set, get)</p></li><li><p>计数 自增自减(incrby)</p></li></ul><h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><ul><li><p>链表</p></li><li><p>可以用左进右出或者右进左出实现队列（rpush, lpop)</p></li><li><p>右进右出实现栈（rpush, rpop)</p></li><li><p>慢操作(lindex, ltrim, lrange)</p></li><li><p>快速链表</p></li></ul><h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><ul><li><p>相当于java中的HashMap</p></li><li><p>key对应一个hash结构 (hset, hget, hlen, hmset)</p></li><li><p>扩容时使用渐进rehash避免阻塞</p></li><li><p>对hash中的单个字段进行计数(hincrby)</p></li></ul><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><ul><li><p>相当于java中的HashSet，即一个所有value为NULL的HashMap</p></li><li><p>自动去重</p></li><li><p>sadd, smembers, sismember, spop</p></li><li><p>scard获取长度</p></li></ul><h3 id="zset"><a href="#zset" class="headerlink" title="zset"></a>zset</h3><ul><li><p>可以理解为在set基础上为每个value加一个score字段，自动按有序</p></li><li><p>zadd, zrange, zrevrange, zscore, zrangebyscore, zrem</p></li><li><p>zcard获取长度</p></li><li><p>底层使用跳表数据结构，兼顾了查询和插入删除的操作性能。</p></li></ul><h3 id="容器型数据结构的通用规则"><a href="#容器型数据结构的通用规则" class="headerlink" title="容器型数据结构的通用规则"></a>容器型数据结构的通用规则</h3><p>list, set, hash, zset 都是容器型数据结构，他们同享这两条通用规则。</p><ol start="2"><li><p>create if not exists</p></li><li><p>drop if no elements</p></li></ol>]]></content>
     
